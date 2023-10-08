@@ -32,7 +32,7 @@ public class ManipulateFiles {
             // Crea un BufferedWriter para escribir líneas
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);            
             // Escribe líneas en el archivo
-            bufferedWriter.write(linea);            
+            bufferedWriter.write(linea+"\n");            
             // Cierra el BufferedWriter
             bufferedWriter.close();
     }

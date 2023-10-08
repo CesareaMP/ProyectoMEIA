@@ -259,7 +259,7 @@ public class register extends javax.swing.JFrame {
                             }
                             else{ 
                                 archi.WriteABinnacle(linearch,rutabitUsuario);
-                                String lineaEnvio = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario();
+                                String lineaEnvio = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
                                 archi.WriteADescriptor(persona,rutadescbitUsuario,lineaEnvio,1);
                             }
                         
