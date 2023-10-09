@@ -33,7 +33,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("MENU PRINCIPAL");
+        jLabel1.setText("MENU ADMIN");
 
         btnRegistros.setBackground(new java.awt.Color(255, 204, 112));
         btnRegistros.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -76,7 +76,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 .addComponent(btnRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
         pack();
@@ -84,6 +84,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
         // TODO add your handling code here:
+        
         register registerFrame = new register('0');
            registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
            registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame

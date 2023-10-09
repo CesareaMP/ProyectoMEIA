@@ -43,7 +43,7 @@
               <Component id="btnRegistros" min="-2" pref="82" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Component id="btnBackup" min="-2" pref="82" max="-2" attributes="0"/>
-              <EmptySpace pref="67" max="32767" attributes="0"/>
+              <EmptySpace pref="149" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,7 +55,7 @@
           <Font name="Dialog" size="24" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="MENU PRINCIPAL"/>
+        <Property name="text" type="java.lang.String" value="MENU ADMIN"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnRegistros">
