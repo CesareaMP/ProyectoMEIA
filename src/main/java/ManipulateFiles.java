@@ -1,21 +1,17 @@
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -144,55 +140,75 @@ public class ManipulateFiles {
         }
         
     }
-    public void ReorganizeFile(String rutaBinnacle, String rutaArchivo) {
-        List<String> lineasOrdenadas = EnListFile(rutaBinnacle);
-        
-        try{
+    public void ReorganizeFile(String rutaBinnacle, String rutaArchivo) throws IOException {
+        List<Users> lineasOrdenadas = EnListFile(rutaBinnacle);
             FileWriter fileWriter = new FileWriter(rutaBinnacle);
             // Cierra el FileWriter sin escribir nada
             fileWriter.close();
             for (int i = 0; i < lineasOrdenadas.size(); i++) {
-            WriteAFile(lineasOrdenadas.get(i),true,rutaArchivo);
-        }
-        }
-        catch(IOException e){            
-        }
-        
-        
+                String lineaimprimir=lineasOrdenadas.get(i).UserToString();
+            WriteAFile(lineaimprimir,true,rutaArchivo);
+            }
     }
     
-     public static List<String> EnListFile(String nombreArchivo) {
-        List<String> lineas = new ArrayList<>();
+     public static List<Users> EnListFile(String nombreArchivo) throws FileNotFoundException, IOException {
+    FileReader leerFila = new FileReader(nombreArchivo);
+    
+    List<Users> resultList = new ArrayList<>();
+    
+    BufferedReader bufferedReader = new BufferedReader(leerFila);
+    
+    String linea = bufferedReader.readLine();
+    while (linea != null) {
+        Users usuario = new Users();
+        usuario = usuario.StringToUser(linea);            
+        resultList.add(usuario);  
+        linea = bufferedReader.readLine();
+    }
+    
+    // Define un Comparator para ordenar por el atributo "usuario"
+    Comparator<Users> usuarioComparator = new Comparator<Users>() {
+        @Override
+        public int compare(Users u1, Users u2) {
+            return u1.getUsuario().compareTo(u2.getUsuario());
+        }
+    };
 
-        try {
-            // Abre el archivo para lectura
-            FileReader fileReader = new FileReader(nombreArchivo);
+    // Ordena la lista utilizando el Comparator
+    Collections.sort(resultList, usuarioComparator);
+    
+    // Ahora resultList está ordenada por el atributo "usuario" de menor a mayor
+    
+    return resultList; // Devuelve la lista ordenada
+}
 
-            // Crea un BufferedReader para leer líneas
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
+     
+     public List<Users> EnListTwoFiles(String arch1, String arch2){
+         List<Users> lineas = new ArrayList<>();
+         
+         try (BufferedReader reader = new BufferedReader(new FileReader(arch1))) {
             String linea;
-
-            // Lee y agrega cada línea del archivo a la lista
-            while ((linea = bufferedReader.readLine()) != null) {
-                lineas.add(linea);
+            while ((linea = reader.readLine()) != null) {
+                Users usutemp=new Users();
+                usutemp=usutemp.StringToUser(linea);
+                lineas.add(usutemp);
             }
-
-            // Cierra el BufferedReader
-            bufferedReader.close();
-
-            // Ordena las líneas según el primer split con el delimitador "|"
-            Collections.sort(lineas, (linea1, linea2) -> {
-                String[] partes1 = linea1.split("\\|");
-                String[] partes2 = linea2.split("\\|");
-                return partes1[0].compareTo(partes2[0]);
-            });
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(arch2))) {
+            String linea;
+             while ((linea = reader.readLine()) != null) {
+                Users usutemp=new Users();
+                usutemp=usutemp.StringToUser(linea);
+                lineas.add(usutemp);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return lineas;
-    }
+     }
    
     
 }

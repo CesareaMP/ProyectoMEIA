@@ -44,19 +44,7 @@ public class registrosMenu extends javax.swing.JFrame {
         while(linea != null)
         {
             Users usuario = new Users();
-            String[] tokens = linea.split("\\|");
-            
-            usuario.setUsuario(tokens[0]);
-            usuario.setNombre(tokens[1]);
-            usuario.setApellido(tokens[2]);
-            usuario.setPassword(tokens[3]);
-            usuario.setRol(tokens[4].charAt(0));
-            usuario.setFechaNacimiento(tokens[5]);
-            usuario.setCorreoElectronico(tokens[6]);
-            usuario.setTelefono(Integer.parseInt(tokens[7]));
-            usuario.setPathFotografia(tokens[8]);
-            usuario.setEstatus(tokens[9].charAt(0));
-
+            usuario=usuario.StringToUser(linea);            
             resultList.add(usuario);  
             linea = bufferedReader.readLine();
         }
