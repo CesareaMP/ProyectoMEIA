@@ -53,7 +53,7 @@ public class ManipulateFiles {
             return true;
         }
     }
-    private int LargeOfFile(String rutaArchivo){
+    public int LargeOfFile(String rutaArchivo){
         int lineCount = 0;    
     try {
         FileReader fileReader = new FileReader(rutaArchivo);
@@ -95,22 +95,42 @@ public class ManipulateFiles {
             FileWriter fileWriter = new FileWriter(rutaArchivo);
             // Cierra el FileWriter sin escribir nada
             fileWriter.close();
-            primeraLinea.split("\\|")[3] = ObtenerHoraActual();
-            primeraLinea.split("\\|")[4] = usuario.getUsuario();
-            primeraLinea.split("\\|")[5] = "0";
-            int total=0;
-            if(valor==1){
-            int canti=Integer.parseInt(primeraLinea.split("\\|")[6])+1;
-            total+=canti;
-            primeraLinea.split("\\|")[6] = String.valueOf(canti);
+            String[] partes = primeraLinea.split("\\|");
+            partes[3] = ObtenerHoraActual();
+            partes[4] = usuario.getUsuario();
+            partes[5] = "0";
+
+            int total = 0;
+            if (valor == 1) {
+                int canti = Integer.parseInt(partes[6]) + 1;
+                total += canti;
+                partes[6] = String.valueOf(canti);
+            } else if(valor==-1) {
+                int canti = Integer.parseInt(partes[7]) + 1;
+                total += canti;
+                partes[7] = String.valueOf(canti);
             }
-            else{
-            int canti=Integer.parseInt(primeraLinea.split("\\|")[7])+1;
-            total+=canti;
-            primeraLinea.split("\\|")[7] = String.valueOf(canti);
+            else if(valor==0){                
+                total = 0;
+                partes[6] = String.valueOf(0);
+                partes[7] = String.valueOf(0);
             }
-            primeraLinea.split("\\|")[5] = String.valueOf(total);
-            WriteADescriptor(usuario,rutaArchivo,lineaEnvio, valor);
+             else if(valor==2){                
+               int canti = Integer.parseInt(partes[6]) + 3;
+               total += canti;
+               partes[6] = String.valueOf(canti);
+            }
+            partes[5] = String.valueOf(total);
+
+            // Reemplaza la primera línea original con la línea actualizada
+            StringBuilder nuevaLinea = new StringBuilder();
+            for (String parte : partes) {
+                nuevaLinea.append(parte).append("|");
+            }
+
+            // Elimina el último "|" agregado en el ciclo anterior
+            nuevaLinea.deleteCharAt(nuevaLinea.length() - 1);
+            WriteADescriptor(usuario,rutaArchivo,nuevaLinea.toString(), valor);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,10 +139,6 @@ public class ManipulateFiles {
     public void WriteABinnacle(String linea, String rutaBinnacle, String rutaArchivo){
         try {
             WriteAFile(linea,true,rutaBinnacle);
-            int daniel=LargeOfFile(rutaBinnacle);
-            if(daniel==3){
-             ReorganizeFile(rutaBinnacle,rutaArchivo);
-            }
         } catch (IOException ex) {
             
         }
