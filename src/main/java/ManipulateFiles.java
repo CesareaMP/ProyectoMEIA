@@ -54,8 +54,21 @@ public class ManipulateFiles {
         }
     }
     private int LargeOfFile(String rutaArchivo){
-        File archivo = new File(rutaArchivo);
-        return (int) archivo.length();
+        int lineCount = 0;    
+    try {
+        FileReader fileReader = new FileReader(rutaArchivo);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        
+        while (bufferedReader.readLine() != null) {
+            lineCount++;
+        }
+        
+        bufferedReader.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    
+    return lineCount;
     }
     public void WriteADescriptor(Users usuario, String rutaArchivo, String lineaEnvio, int valor) throws IOException{
         if (WritedFile(rutaArchivo)==false) {
@@ -103,26 +116,27 @@ public class ManipulateFiles {
         }
         }
     }
-    public void WriteABinnacle(String linea, String ruta){
+    public void WriteABinnacle(String linea, String rutaBinnacle, String rutaArchivo){
         try {
-            WriteAFile(linea,true,ruta);
-            if(LargeOfFile(ruta)==3){
-             ReorganizeFile(ruta);
+            WriteAFile(linea,true,rutaBinnacle);
+            int daniel=LargeOfFile(rutaBinnacle);
+            if(daniel==3){
+             ReorganizeFile(rutaBinnacle,rutaArchivo);
             }
         } catch (IOException ex) {
             
         }
         
     }
-    public void ReorganizeFile(String ruta) {
-        List<String> lineasOrdenadas = EnListFile(ruta);
+    public void ReorganizeFile(String rutaBinnacle, String rutaArchivo) {
+        List<String> lineasOrdenadas = EnListFile(rutaBinnacle);
         
         try{
-            FileWriter fileWriter = new FileWriter(ruta);
+            FileWriter fileWriter = new FileWriter(rutaBinnacle);
             // Cierra el FileWriter sin escribir nada
             fileWriter.close();
             for (int i = 0; i < lineasOrdenadas.size(); i++) {
-            WriteAFile(lineasOrdenadas.get(i),true,ruta);
+            WriteAFile(lineasOrdenadas.get(i),true,rutaArchivo);
         }
         }
         catch(IOException e){            
