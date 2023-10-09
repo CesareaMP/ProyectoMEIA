@@ -1,34 +1,26 @@
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 /**
  *
- * @author CASTA
+ * @author casta y caser
  */
 
 
@@ -37,13 +29,57 @@ public class registrosMenu extends javax.swing.JFrame {
     /**
      * Creates new form registrosMenu
      */
-    public registrosMenu() {
+    public String nombreArchivo = "C:/MEIA/usuario.txt";
+    
+    public List<Users> ConvertFileToList (String rutaArchivo) throws FileNotFoundException, IOException
+    {
+        FileReader leerFila = new FileReader(rutaArchivo);
         
+        List<Users> resultList = new ArrayList<>();
         
+        BufferedReader bufferedReader = new BufferedReader(leerFila);
         
-        initComponents();
-    }
+        String linea = bufferedReader.readLine();
+        
+        while(linea != null)
+        {
+            Users usuario = new Users();
+            String[] tokens = linea.split("\\|");
+            
+            usuario.setUsuario(tokens[0]);
+            usuario.setNombre(tokens[1]);
+            usuario.setApellido(tokens[2]);
+            usuario.setPassword(tokens[3]);
+            usuario.setRol(tokens[4].charAt(0));
+            usuario.setFechaNacimiento(tokens[5]);
+            usuario.setCorreoElectronico(tokens[6]);
+            usuario.setTelefono(Integer.parseInt(tokens[7]));
+            usuario.setPathFotografia(tokens[8]);
+            usuario.setEstatus(tokens[9].charAt(0));
 
+            resultList.add(usuario);  
+            linea = bufferedReader.readLine();
+        }
+        return resultList;
+    }
+    
+    public registrosMenu() throws IOException {
+        initComponents();
+        
+        DefaultListModel modeloListaRegistros = new DefaultListModel();
+        
+        List<Users> listaRegistros = new ArrayList<>();
+        listaRegistros = ConvertFileToList(nombreArchivo);
+       
+        for(int i = 0; i<listaRegistros.size();i++)
+        {
+            modeloListaRegistros.addElement(listaRegistros.get(i).UserPrint());
+        }
+
+        JlistRegistros.setModel(modeloListaRegistros);
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,20 +95,20 @@ public class registrosMenu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JTextField();
-        txtPassword1 = new javax.swing.JTextField();
-        txtPassword3 = new javax.swing.JTextField();
+        txtSearchUsuario = new javax.swing.JTextField();
+        txtSearchNombre = new javax.swing.JTextField();
+        txtSearchTelefono = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        scrollPane1 = new java.awt.ScrollPane();
-        btnRegistros = new javax.swing.JButton();
-        btnRegistros1 = new javax.swing.JButton();
-        btnRegistros2 = new javax.swing.JButton();
+        btnBuscarUsuario = new javax.swing.JButton();
+        btnBuscarNombre = new javax.swing.JButton();
+        btnBuscarTelefono = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JlistRegistros = new javax.swing.JList<>();
 
         txtPassword2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,42 +192,44 @@ public class registrosMenu extends javax.swing.JFrame {
         jLabel11.setText("TELEFONO");
         jLabel11.setOpaque(true);
 
-        jLabel12.setBackground(new java.awt.Color(255, 193, 112));
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("IMAGEN");
-        jLabel12.setOpaque(true);
-
-        btnRegistros.setBackground(new java.awt.Color(255, 204, 112));
-        btnRegistros.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnRegistros.setForeground(new java.awt.Color(0, 0, 0));
-        btnRegistros.setText("BUSCAR");
-        btnRegistros.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarUsuario.setBackground(new java.awt.Color(255, 204, 112));
+        btnBuscarUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnBuscarUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        btnBuscarUsuario.setText("BUSCAR");
+        btnBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrosActionPerformed(evt);
+                btnBuscarUsuarioActionPerformed(evt);
             }
         });
 
-        btnRegistros1.setBackground(new java.awt.Color(255, 204, 112));
-        btnRegistros1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnRegistros1.setForeground(new java.awt.Color(0, 0, 0));
-        btnRegistros1.setText("BUSCAR");
-        btnRegistros1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarNombre.setBackground(new java.awt.Color(255, 204, 112));
+        btnBuscarNombre.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnBuscarNombre.setForeground(new java.awt.Color(0, 0, 0));
+        btnBuscarNombre.setText("BUSCAR");
+        btnBuscarNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistros1ActionPerformed(evt);
+                btnBuscarNombreActionPerformed(evt);
             }
         });
 
-        btnRegistros2.setBackground(new java.awt.Color(255, 204, 112));
-        btnRegistros2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnRegistros2.setForeground(new java.awt.Color(0, 0, 0));
-        btnRegistros2.setText("BUSCAR");
-        btnRegistros2.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarTelefono.setBackground(new java.awt.Color(255, 204, 112));
+        btnBuscarTelefono.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnBuscarTelefono.setForeground(new java.awt.Color(0, 0, 0));
+        btnBuscarTelefono.setText("BUSCAR");
+        btnBuscarTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistros2ActionPerformed(evt);
+                btnBuscarTelefonoActionPerformed(evt);
             }
         });
+
+        JlistRegistros.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        JlistRegistros.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "njghmuktj" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        JlistRegistros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(JlistRegistros);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,46 +238,48 @@ public class registrosMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPassword))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPassword1))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPassword3)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRegistros2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRegistros1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(scrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20))
+                                        .addComponent(txtSearchTelefono))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtSearchUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtSearchNombre)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnBuscarNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnBuscarUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnBuscarTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,21 +290,23 @@ public class registrosMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnRegistros)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSearchUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(btnBuscarUsuario)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnRegistros1))
+                                .addComponent(txtSearchNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnBuscarNombre))
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(19, 19, 19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPassword3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSearchTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRegistros2)))
+                            .addComponent(btnBuscarTelefono)))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -273,11 +315,10 @@ public class registrosMenu extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(scrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -287,22 +328,22 @@ public class registrosMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPassword2ActionPerformed
 
-    private void btnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrosActionPerformed
+    private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
         // TODO add your handling code here:
         register registerFrame = new register('0');
         registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
         registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
         registerFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnRegistrosActionPerformed
+    }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
-    private void btnRegistros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistros1ActionPerformed
+    private void btnBuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegistros1ActionPerformed
+    }//GEN-LAST:event_btnBuscarNombreActionPerformed
 
-    private void btnRegistros2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistros2ActionPerformed
+    private void btnBuscarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTelefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegistros2ActionPerformed
+    }//GEN-LAST:event_btnBuscarTelefonoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,19 +382,25 @@ public class registrosMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new registrosMenu().setVisible(true);
+                try
+                {
+                    new registrosMenu().setVisible(true);
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(registrosMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistros;
-    private javax.swing.JButton btnRegistros1;
-    private javax.swing.JButton btnRegistros2;
+    private javax.swing.JList<String> JlistRegistros;
+    private javax.swing.JButton btnBuscarNombre;
+    private javax.swing.JButton btnBuscarTelefono;
+    private javax.swing.JButton btnBuscarUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -362,16 +409,11 @@ public class registrosMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private java.awt.ScrollPane scrollPane1;
-    private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtPassword1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtPassword2;
-    private javax.swing.JTextField txtPassword3;
+    private javax.swing.JTextField txtSearchNombre;
+    private javax.swing.JTextField txtSearchTelefono;
+    private javax.swing.JTextField txtSearchUsuario;
     // End of variables declaration//GEN-END:variables
 
-    private static class Collections {
-
-        public Collections() {
-        }
-    }
 }

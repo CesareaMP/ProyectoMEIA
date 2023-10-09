@@ -21,6 +21,12 @@ public class Users {
     private String path_fotografia;
     private char estatus;
     
+    // Cesar no borres esto, si funciona para algo XD
+    public Users()
+    {
+        
+    }
+    
     public Users(String usuario, String nombre, String apellido, String password, char rol, String fechaNacimiento, String correoElectronico,int telefono, String pathFotografia, char estatus) {
         this.usuario = usuario;
         this.nombre = nombre;
@@ -36,6 +42,10 @@ public class Users {
     
     public String UserToString(){
         return this.usuario+"|"+this.nombre+"|"+this.apellido+"|"+this.password+"|"+String.valueOf(this.rol)+"|"+this.fecha_nacimiento+"|"+this.correo_electronico+"|"+String.valueOf(telefono)+"|"+this.path_fotografia+"|"+String.valueOf(this.estatus);
+    }
+    
+    public String UserPrint(){
+        return this.usuario+"|"+this.nombre+"|"+this.apellido+"|"+String.valueOf(this.rol)+"|"+this.fecha_nacimiento+"|"+this.correo_electronico+"|"+String.valueOf(telefono)+"|";
     }
     
     public String getUsuario() {

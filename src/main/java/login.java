@@ -143,7 +143,7 @@ public class login extends javax.swing.JFrame {
         String nombreArchivo = "C:/MEIA/usuario.txt";
         File archivo = new File(nombreArchivo);
 
-        if (archivo.exists() && archivo.length() == 0) {
+        if (archivo.length() == 0) {
            txtUsuario.disable();
            txtPassword.disable();
            btnLogin.disable();
