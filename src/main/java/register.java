@@ -253,12 +253,14 @@ public class register extends javax.swing.JFrame {
                         String linearch=persona.UserToString();
                         try {
                             if (rol=='1') {
-                                archi.WriteAFile(linearch,true,rutaUsuario);
+                                archi.WriteABinnacle(linearch,rutabitUsuario,rutaUsuario);
+                                archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
                                 String lineaEnvio = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
-                                archi.WriteADescriptor(persona, rutadescUsuario, lineaEnvio, 1);
+                                archi.WriteADescriptor(persona,rutadescbitUsuario,lineaEnvio,1);
                             }
                             else{ 
-                                archi.WriteABinnacle(linearch,rutabitUsuario);
+                                archi.WriteABinnacle(linearch,rutabitUsuario,rutaUsuario);
+                                archi.ReorganizeFile(rutaUsuario,rutaUsuario);
                                 String lineaEnvio = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
                                 archi.WriteADescriptor(persona,rutadescbitUsuario,lineaEnvio,1);
                             }
