@@ -1,3 +1,10 @@
+
+import java.awt.Image;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -5,17 +12,34 @@
 
 /**
  *
- * @author CASTA
+ * @author CASTA y Cesart
  */
 public class menuPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form menuPrincipal
      */
-    public menuPrincipal() {
+    
+    public Users adminU = new Users();
+    
+    public menuPrincipal(Users usuario) {
+        
+        adminU = usuario;
         initComponents();
+        String rutaImagen = usuario.getPathFotografia();
+        if (rutaImagen != null) {
+            ImageIcon imagenIcon = new ImageIcon(rutaImagen);
+            Image imagenOriginal = imagenIcon.getImage();
+            Image imagenRedimensionada = imagenOriginal.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+            ImageIcon imagenRedimensionadaIcon = new ImageIcon(imagenRedimensionada);
+            lblImagen.setIcon(imagenRedimensionadaIcon);
+        }
+        lblNombre.setText(usuario.getNombre()+" "+usuario.getApellido());
     }
-
+    
+    private menuPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,6 +53,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         btnRegistros = new javax.swing.JButton();
         btnBackup = new javax.swing.JButton();
         btnBackup1 = new javax.swing.JButton();
+        lblNombre = new javax.swing.JLabel();
+        lblImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +92,13 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        lblNombre.setBackground(new java.awt.Color(255, 193, 112));
+        lblNombre.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(0, 0, 0));
+        lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombre.setText("USUARIO: WILBERT (ADMIN)");
+        lblNombre.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,21 +107,33 @@ public class menuPrincipal extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(26, 26, 26)
+                                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                .addGap(40, 40, 40)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(btnRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(20, 20, 20)
                 .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(20, 20, 20)
                 .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -107,12 +152,19 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackupActionPerformed
 
     private void btnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrosActionPerformed
-        // TODO add your handling code here:
-        register registerFrame = new register('0');
-           registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-           registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
-           registerFrame.setVisible(true);
-           this.dispose();
+        try
+        {
+            // TODO add your handling code here:
+            
+            registrosMenu registrosMenu = new registrosMenu(adminU);
+            registrosMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+            registrosMenu.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+            registrosMenu.setVisible(true);
+            this.dispose();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnRegistrosActionPerformed
 
     private void btnBackup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackup1ActionPerformed
@@ -166,5 +218,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnBackup1;
     private javax.swing.JButton btnRegistros;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblNombre;
     // End of variables declaration//GEN-END:variables
 }

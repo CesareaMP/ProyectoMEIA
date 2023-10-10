@@ -7,7 +7,7 @@
 
 /**
  *
- * @author cesar
+ * @author cesar y casra
  */
 public class Users {
     private String usuario;
