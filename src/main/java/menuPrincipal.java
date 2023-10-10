@@ -28,12 +28,13 @@ public class menuPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnRegistros = new javax.swing.JButton();
         btnBackup = new javax.swing.JButton();
+        btnBackup1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("MENU ADMIN");
+        jLabel1.setText("MENU ADMIN 😎");
 
         btnRegistros.setBackground(new java.awt.Color(255, 204, 112));
         btnRegistros.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -55,28 +56,41 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnBackup1.setBackground(new java.awt.Color(255, 204, 112));
+        btnBackup1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnBackup1.setForeground(new java.awt.Color(0, 0, 0));
+        btnBackup1.setText("REORGANIZAR");
+        btnBackup1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackup1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addGap(40, 40, 40)
                 .addComponent(btnRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -100,6 +114,10 @@ public class menuPrincipal extends javax.swing.JFrame {
            registerFrame.setVisible(true);
            this.dispose();
     }//GEN-LAST:event_btnRegistrosActionPerformed
+
+    private void btnBackup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackup1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackup1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,6 +163,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBackup;
+    private javax.swing.JButton btnBackup1;
     private javax.swing.JButton btnRegistros;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
