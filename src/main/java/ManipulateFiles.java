@@ -140,17 +140,19 @@ public class ManipulateFiles {
         }
         
     }
+    private void SortFile(String rutaArchivo){
+        
+    }
     public void ReorganizeFile(String rutaBinnacle, String rutaArchivo) throws IOException {
         List<Users> lineasOrdenadas = EnListFile(rutaBinnacle);
-            FileWriter fileWriter = new FileWriter(rutaBinnacle);
-            // Cierra el FileWriter sin escribir nada
-            fileWriter.close();
+            DeleteFile(rutaBinnacle);
             for (int i = 0; i < lineasOrdenadas.size(); i++) {
                 if (lineasOrdenadas.get(i).getEstatus()=='1') {
                     String lineaimprimir=lineasOrdenadas.get(i).UserToString();
                     WriteAFile(lineaimprimir,true,rutaArchivo);
                 }                
             }
+        
     }
     
      public static List<Users> EnListFile(String nombreArchivo) throws FileNotFoundException, IOException {
@@ -267,7 +269,7 @@ public class ManipulateFiles {
             WriteAFile(users.get(i).UserToString(),true,rutaUsuario);
         }
         for (int i = 0; i < usersBinnacle.size(); i++) {
-            WriteAFile(users.get(i).UserToString(),true,rutaUsuario);
+            WriteAFile(users.get(i).UserToString(),true,rutaBinnacle);
         }
 }
     
