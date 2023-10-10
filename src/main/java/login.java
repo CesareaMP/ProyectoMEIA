@@ -118,9 +118,7 @@ public class login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String rutaUsuario = "C:/MEIA/usuario.txt";
-        String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
         String rutabitUsuario = "C:/MEIA/bitusuario.txt";
-        String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
         String login=txtUsuario.getText();
         String password=txtPassword.getText();
         if(!login.isEmpty() && !password.isEmpty()){

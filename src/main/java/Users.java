@@ -136,7 +136,7 @@ public class Users {
         this.path_fotografia = pathFotografia;
     }
 
-    public char isEstatus() {
+    public char getEstatus() {
         return estatus;
     }
 

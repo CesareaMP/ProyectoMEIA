@@ -146,8 +146,10 @@ public class ManipulateFiles {
             // Cierra el FileWriter sin escribir nada
             fileWriter.close();
             for (int i = 0; i < lineasOrdenadas.size(); i++) {
-                String lineaimprimir=lineasOrdenadas.get(i).UserToString();
-            WriteAFile(lineaimprimir,true,rutaArchivo);
+                if (lineasOrdenadas.get(i).getEstatus()=='1') {
+                    String lineaimprimir=lineasOrdenadas.get(i).UserToString();
+                    WriteAFile(lineaimprimir,true,rutaArchivo);
+                }                
             }
     }
     
@@ -209,6 +211,64 @@ public class ManipulateFiles {
         }
         return lineas;
      }
+     public Users FindAdmin(List<Users> allusers) throws IOException{
+     Users admin=null;
+     for (int i = 0; i < allusers.size(); i++) {
+                if (allusers.get(i).getRol()=='1') {
+                    admin=allusers.get(i);
+                    break;
+                }
+            }
+     return admin;
+     }
+     
+    private void DeleteFile(String ruta) throws IOException{
+         FileWriter fileWriter = new FileWriter(ruta);
+            // Cierra el FileWriter sin escribir nada
+            fileWriter.close();
+    }
+    
+    public int FindUser(Users who,List<Users> users) throws IOException{
+        Users admin=FindAdmin(users);
+        for (int i = 0; i < users.size(); i++) {
+        if (users.get(i).equals(who) && !users.get(i).equals(admin)) {
+            return i; // Termina el bucle una vez que se elimina el objeto
+        }        
+    }
+        return -1;
+    }
+    
+    private void EditDescriptorByAdmin(String rutaUsuario, String rutaDescriptor, int action) throws IOException{
+        Users admin=FindAdmin(EnListFile(rutaUsuario));
+        String lineadesc = "usuario" + "|" + ObtenerHoraActual() + "|" + admin.getUsuario() + "|" + ObtenerHoraActual() + "|" + admin.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
+        WriteADescriptor(admin,rutaDescriptor,lineadesc,action);
+    }
    
+    public void DeleteFromFiles(Users delete, String rutaUsuario, String rutaBinnacle) throws IOException {
+    List<Users> users = new ArrayList<>();
+    List<Users> usersBinnacle = new ArrayList<>();
+    users = EnListFile(rutaUsuario);
+    usersBinnacle = EnListFile(rutaUsuario);
+    DeleteFile(rutaUsuario);
+    DeleteFile(rutaBinnacle);
+    
+    // Recorre la lista para encontrar y eliminar el objeto "delete"
+    int indexuser=FindUser(delete, users);
+    int indexbinnacle=FindUser(delete,usersBinnacle);
+    
+        if (indexuser!=-1) {
+            users.get(indexuser).setEstatus('0');
+        }
+        if (indexbinnacle!=-1) {
+            usersBinnacle.get(indexuser).setEstatus('0');
+
+        }    
+        for (int i = 0; i < users.size(); i++) {
+            WriteAFile(users.get(i).UserToString(),true,rutaUsuario);
+        }
+        for (int i = 0; i < usersBinnacle.size(); i++) {
+            WriteAFile(users.get(i).UserToString(),true,rutaUsuario);
+        }
+}
     
 }
