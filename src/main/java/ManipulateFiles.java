@@ -139,9 +139,29 @@ public class ManipulateFiles {
         }
         
     }
-    private void SortFile(String rutaArchivo){
-        
-    }
+    
+    private void SortFile(String rutaArchivo) throws IOException {
+    List<Users> allusers = EnListFile(rutaArchivo);
+    DeleteFile(rutaArchivo);
+    // Define un comparador personalizado para ordenar por el atributo "usuario"
+    Comparator<Users> usuarioComparator = new Comparator<Users>() {
+        @Override
+        public int compare(Users u1, Users u2) {
+            return u1.getUsuario().compareTo(u2.getUsuario());
+        }
+    };
+
+    // Ordena la lista utilizando el comparador
+    Collections.sort(allusers, usuarioComparator);
+    
+    // La lista "allusers" ahora estará ordenada por el atributo "usuario"
+        for (int i = 0; i < allusers.size(); i++) {
+            String lineaenvio=allusers.get(i).UserToString();
+            WriteAFile(lineaenvio,true,rutaArchivo);
+        }
+}
+
+    
     public void ReorganizeFile(String rutaBinnacle, String rutaArchivo) throws IOException {
         List<Users> lineasOrdenadas = EnListFile(rutaBinnacle);
             DeleteFile(rutaBinnacle);
@@ -151,7 +171,7 @@ public class ManipulateFiles {
                     WriteAFile(lineaimprimir,true,rutaArchivo);
                 }                
             }
-        
+        SortFile(rutaArchivo);        
     }
     
      public static List<Users> EnListFile(String nombreArchivo) throws FileNotFoundException, IOException {

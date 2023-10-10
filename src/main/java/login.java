@@ -116,9 +116,12 @@ public class login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    String rutaUsuario = "C:/MEIA/usuario.txt";
+    String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
+    String rutabitUsuario = "C:/MEIA/bitusuario.txt";
+    String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String rutaUsuario = "C:/MEIA/usuario.txt";
-        String rutabitUsuario = "C:/MEIA/bitusuario.txt";
+        
         String login=txtUsuario.getText();
         String password=txtPassword.getText();
         if(!login.isEmpty() && !password.isEmpty()){
@@ -163,10 +166,34 @@ public class login extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        String nombreArchivo = "C:/MEIA/usuario.txt";
-        File archivo = new File(nombreArchivo);
+        File archivoUsuario = new File(rutaUsuario);
+        File archivodescUsuario = new File(rutadescUsuario);
+        File archivobitUsuario = new File(rutabitUsuario);
+        File archivodescbitUsuario = new File(rutadescbitUsuario);
 
-        if (archivo.length() == 0) {
+    // Verifica si el archivo no existe y créalo si es necesario
+    try{
+        if (!archivoUsuario.exists()) {
+        archivoUsuario.createNewFile();
+    }
+
+    if (!archivodescUsuario.exists()) {
+        archivodescUsuario.createNewFile();
+    }
+
+    if (!archivobitUsuario.exists()) {
+        archivobitUsuario.createNewFile();
+    }
+
+    if (!archivodescbitUsuario.exists()) {
+        archivodescbitUsuario.createNewFile();
+    }
+
+    }
+    catch (IOException ex){}
+    
+
+        if (archivoUsuario.length() == 0) {
            txtUsuario.disable();
            txtPassword.disable();
            btnLogin.disable();
