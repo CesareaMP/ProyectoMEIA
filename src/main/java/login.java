@@ -6,7 +6,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -114,23 +117,39 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        
+        String rutaUsuario = "C:/MEIA/usuario.txt";
+        String rutabitUsuario = "C:/MEIA/bitusuario.txt";
         String login=txtUsuario.getText();
         String password=txtPassword.getText();
         if(!login.isEmpty() && !password.isEmpty()){
-        String nombreArchivo = "C:/MEIA/usuario.txt";
-
-        File archivo = new File(nombreArchivo);
-
-        if (archivo.exists() && archivo.length() == 0) {
-            System.out.println("El archivo está vacío.");
-        } else {
-            System.out.println("El archivo no está vacío o no existe.");
-        }
+        
+        password=DigestUtils.sha256Hex(password);
+        Users usuario=null;
+        List<Users> resultList = new ArrayList<>();
+        resultList=archi.EnListTwoFiles(rutaUsuario,rutabitUsuario);
+            for (int i = 0; i < resultList.size(); i++) {
+                if (resultList.get(i).getUsuario().equals(login) &&resultList.get(i).getPassword().equals(password)) {
+                    usuario=resultList.get(i);
+                }
+            }
+            if (usuario==null) {
+                JOptionPane.showMessageDialog(null,"Usuario no encontrado");
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Usuario  encontrado");
+                if (usuario.getRol()=='1') {//es admin
+                    
+                }
+                else{//no es admin
+                    
+                }
+            }
         }
         else{
             JOptionPane.showMessageDialog(null,"Ingrese todos los campos");
         }
+        txtUsuario.setText("");
+        txtPassword.setText("");
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved

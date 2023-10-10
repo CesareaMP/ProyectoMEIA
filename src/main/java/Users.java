@@ -43,6 +43,22 @@ public class Users {
     public String UserToString(){
         return this.usuario+"|"+this.nombre+"|"+this.apellido+"|"+this.password+"|"+String.valueOf(this.rol)+"|"+this.fecha_nacimiento+"|"+this.correo_electronico+"|"+String.valueOf(telefono)+"|"+this.path_fotografia+"|"+String.valueOf(this.estatus);
     }
+    public Users StringToUser(String linea){
+            Users retusuario = new Users();
+            String[] tokens = linea.split("\\|");
+            
+            retusuario.setUsuario(tokens[0]);
+            retusuario.setNombre(tokens[1]);
+            retusuario.setApellido(tokens[2]);
+            retusuario.setPassword(tokens[3]);
+            retusuario.setRol(tokens[4].charAt(0));
+            retusuario.setFechaNacimiento(tokens[5]);
+            retusuario.setCorreoElectronico(tokens[6]);
+            retusuario.setTelefono(Integer.parseInt(tokens[7]));
+            retusuario.setPathFotografia(tokens[8]);
+            retusuario.setEstatus(tokens[9].charAt(0));
+        return retusuario;
+    }
     
     public String UserPrint(){
         return this.usuario+"|"+this.nombre+"|"+this.apellido+"|"+String.valueOf(this.rol)+"|"+this.fecha_nacimiento+"|"+this.correo_electronico+"|"+String.valueOf(telefono)+"|";
@@ -80,7 +96,7 @@ public class Users {
         this.password = password;
     }
 
-    public char isRol() {
+    public char getRol() {
         return rol;
     }
 
@@ -120,7 +136,7 @@ public class Users {
         this.path_fotografia = pathFotografia;
     }
 
-    public char isEstatus() {
+    public char getEstatus() {
         return estatus;
     }
 
