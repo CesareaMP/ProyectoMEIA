@@ -131,21 +131,35 @@ public class login extends javax.swing.JFrame {
         List<Users> resultList = new ArrayList<>();
         resultList=archi.EnListTwoFiles(rutaUsuario,rutabitUsuario);
             for (int i = 0; i < resultList.size(); i++) {
-                if (resultList.get(i).getUsuario().equals(login) &&resultList.get(i).getPassword().equals(password)) {
+                if (resultList.get(i).getUsuario().equals(login) && resultList.get(i).getPassword().equals(password)) {
                     usuario=resultList.get(i);
                 }
             }
             if (usuario==null) {
                 JOptionPane.showMessageDialog(null,"Usuario no encontrado");
             }
-            else{
-                JOptionPane.showMessageDialog(null,"Usuario  encontrado");
+            else{                
                 if (usuario.getRol()=='1') {//es admin
                     menuPrincipal menuPrincipal = new menuPrincipal(usuario);
                     menuPrincipal.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
                     menuPrincipal.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
                     menuPrincipal.setVisible(true);
                     this.dispose();
+                    
+                    ManipulateFiles archi = new ManipulateFiles();
+        
+                    try{
+                    archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
+                    String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+                    archi.WriteADescriptor(usuario,rutadescbitUsuario,lineabit,0);
+                    String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
+                    archi.WriteADescriptor(usuario,rutadescUsuario,lineadesc,1);
+                    }
+                    catch(IOException e){
+                        
+                    }
+        
+                    
                 }
                 else{//no es admin
 
