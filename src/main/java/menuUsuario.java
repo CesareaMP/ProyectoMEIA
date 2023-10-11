@@ -444,7 +444,7 @@ public class menuUsuario extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         login loginMenu = new login();
         loginMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-        loginMenu.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+        loginMenu.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
         loginMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed

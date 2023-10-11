@@ -170,7 +170,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         menuBackups backupFrame = new menuBackups(adminU);
            backupFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-           backupFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+           backupFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
            backupFrame.setVisible(true);
            this.dispose();
     }//GEN-LAST:event_btnBackupActionPerformed
@@ -194,7 +194,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             
             registrosMenu registrosMenu = new registrosMenu(adminU);
             registrosMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-            registrosMenu.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+            registrosMenu.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
             registrosMenu.setVisible(true);
             this.dispose();
         } catch (IOException ex)
@@ -205,13 +205,24 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private void btnBackup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackup1ActionPerformed
         // TODO add your handling code here:
+        ManipulateFiles archi = new ManipulateFiles();
+        
+                    try{
+                    archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
+                    String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+                    archi.WriteADescriptor(adminU,rutadescbitUsuario,lineabit,0,0);
+                    String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
+                    archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
+                    }
+                    catch(IOException e){ 
+                    }
         
     }//GEN-LAST:event_btnBackup1ActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         login loginMenu = new login();
         loginMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-        loginMenu.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+        loginMenu.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
         loginMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed

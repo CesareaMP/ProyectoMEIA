@@ -170,7 +170,7 @@ public class login extends javax.swing.JFrame {
                 if (usuario.getRol()=='1') {//es admin
                     menuPrincipal menuPrincipal = new menuPrincipal(usuario);
                     menuPrincipal.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-                    menuPrincipal.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+                    menuPrincipal.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
                     menuPrincipal.setVisible(true);
                     this.dispose();
                     
@@ -182,7 +182,7 @@ public class login extends javax.swing.JFrame {
                 else{//no es admin
                     menuUsuario MenuUsuario = new menuUsuario(usuario);
                     MenuUsuario.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-                    MenuUsuario.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+                    MenuUsuario.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
                     MenuUsuario.setVisible(true);
                     this.dispose();
                     

@@ -453,7 +453,7 @@ public class registrosMenu extends javax.swing.JFrame {
         
        register registerFrame = new register('2', adminU);
         registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-        registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+        registerFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
         registerFrame.setVisible(true);
         this.dispose();
         
@@ -464,7 +464,7 @@ public class registrosMenu extends javax.swing.JFrame {
         
         menuPrincipal menuPrincipal = new menuPrincipal(adminU);
         menuPrincipal.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-        menuPrincipal.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+        menuPrincipal.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
         menuPrincipal.setVisible(true);
         this.dispose();
         

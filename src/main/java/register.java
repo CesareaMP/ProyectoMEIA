@@ -322,7 +322,7 @@ public class register extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Usuario creado con exito");
                         login loginFrame = new login();
                         loginFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-                        loginFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+                        loginFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
                         loginFrame.setVisible(true);
                         this.dispose();
            this.dispose();
