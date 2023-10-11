@@ -293,6 +293,7 @@ public class ManipulateFiles {
         for (int i = 0; i < usersBinnacle.size(); i++) {
             WriteAFile(users.get(i).UserToString(),true,rutaBinnacle);
         }
-}
+    }
+    
     
 }
