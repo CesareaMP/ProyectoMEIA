@@ -295,5 +295,20 @@ public class ManipulateFiles {
         }
     }
     
+    public void EditUser(Users edit,String rutaArchivo, String rutaDescriptor) throws IOException{
+        List<Users> alluser=EnListFile(rutaArchivo);
+        String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + edit.getUsuario() + "|" + ObtenerHoraActual() + "|" + edit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+        for (int i = 0; i < alluser.size(); i++) {
+            if (edit.getUsuario().equals(alluser.get(i).getUsuario())) {
+                alluser.set(i, edit);
+                break;
+            }
+        }
+        DeleteFile(rutaArchivo);
+        for (int i = 0; i < alluser.size(); i++) {
+            WriteAFile(alluser.get(i).UserToString(),true,rutaArchivo);
+        }
+        WriteADescriptor(edit,rutaDescriptor,lineabit,256);
+    }
     
 }
