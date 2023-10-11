@@ -136,7 +136,7 @@ public class ManipulateFiles {
             WriteAFile(linea,true,rutaBinnacle);
         } catch (IOException ex) {
             
-        }
+     }
         
     }
     
@@ -265,13 +265,16 @@ public class ManipulateFiles {
         WriteADescriptor(admin,rutaDescriptor,lineadesc,action);
     }
    
-    public void DeleteFromFiles(Users delete, String rutaUsuario, String rutaBinnacle) throws IOException {
+    public void DeleteFromFiles(Users delete, String rutaUsuario, String rutaBinnacle, String rutaDescriptor, Users whoDeletes) throws IOException {
     List<Users> users = new ArrayList<>();
     List<Users> usersBinnacle = new ArrayList<>();
     users = EnListFile(rutaUsuario);
     usersBinnacle = EnListFile(rutaUsuario);
     DeleteFile(rutaUsuario);
     DeleteFile(rutaBinnacle);
+    
+     String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + whoDeletes.getUsuario() + "|" + ObtenerHoraActual() + "|" + whoDeletes.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+     WriteADescriptor(whoDeletes,rutaDescriptor,lineabit,-1);
     
     // Recorre la lista para encontrar y eliminar el objeto "delete"
     int indexuser=FindUser(delete, users);
