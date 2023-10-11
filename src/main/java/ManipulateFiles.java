@@ -295,9 +295,8 @@ public class ManipulateFiles {
         }
     }
     
-    public void EditUser(Users edit,String rutaArchivo, String rutaDescriptor) throws IOException{
+    public void EditUser(Users edit,String rutaArchivo, String rutaDescriptor, Users whoEdit) throws IOException{
         List<Users> alluser=EnListFile(rutaArchivo);
-        String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + edit.getUsuario() + "|" + ObtenerHoraActual() + "|" + edit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
         for (int i = 0; i < alluser.size(); i++) {
             if (edit.getUsuario().equals(alluser.get(i).getUsuario())) {
                 alluser.set(i, edit);
@@ -308,7 +307,7 @@ public class ManipulateFiles {
         for (int i = 0; i < alluser.size(); i++) {
             WriteAFile(alluser.get(i).UserToString(),true,rutaArchivo);
         }
-        WriteADescriptor(edit,rutaDescriptor,lineabit,256);
-    }
-    
+        String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+        WriteADescriptor(whoEdit,rutaDescriptor,lineabit,256);
+    }    
 }
