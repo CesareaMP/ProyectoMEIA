@@ -13,22 +13,15 @@ public class menuBackups extends javax.swing.JFrame {
     /**
      * Creates new form menuBackups
      */
-    
     public Users adminU = new Users();
-    
-    public menuBackups(Users usuario) { 
+    public menuBackups(Users usuario) {
         initComponents();
-        
-        adminU = usuario;
-        lblName.setText(adminU.getNombre()+" "+adminU.getApellido());
-        
-        
     }
 
-    private menuBackups(){
+    private menuBackups() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,7 +42,6 @@ public class menuBackups extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

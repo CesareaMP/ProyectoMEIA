@@ -146,6 +146,8 @@ public class login extends javax.swing.JFrame {
     String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
     String rutabitUsuario = "C:/MEIA/bitusuario.txt";
     String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
+    String rutaBackup="C:/MEIA/backup.txt";
+    String rutadescBackup="C:/MEIA/desc_backup.txt";
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
         String login=txtUsuario.getText();
@@ -171,6 +173,20 @@ public class login extends javax.swing.JFrame {
                     menuPrincipal.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
                     menuPrincipal.setVisible(true);
                     this.dispose();
+                    
+                    ManipulateFiles archi = new ManipulateFiles();
+        
+                    try{
+                    archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
+                    String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+                    archi.WriteADescriptor(usuario,rutadescbitUsuario,lineabit,0,0);
+                    String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
+                    archi.WriteADescriptor(usuario,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
+                    }
+                    catch(IOException e){
+                        
+                    }
+        
                     
                 }
                 else{//no es admin
@@ -201,6 +217,8 @@ public class login extends javax.swing.JFrame {
         File archivodescUsuario = new File(rutadescUsuario);
         File archivobitUsuario = new File(rutabitUsuario);
         File archivodescbitUsuario = new File(rutadescbitUsuario);
+        File archivoBackup = new File(rutaBackup);
+        File archivodescBackup = new File(rutadescBackup);
 
     // Verifica si el archivo no existe y créalo si es necesario
     try{
@@ -218,6 +236,14 @@ public class login extends javax.swing.JFrame {
 
     if (!archivodescbitUsuario.exists()) {
         archivodescbitUsuario.createNewFile();
+    }
+    
+    if (!archivoBackup.exists()) {
+        archivoBackup.createNewFile();
+    }
+    
+    if (!archivodescBackup.exists()) {
+        archivodescBackup.createNewFile();
     }
 
     }

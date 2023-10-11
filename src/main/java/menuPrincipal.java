@@ -30,10 +30,13 @@ public class menuPrincipal extends javax.swing.JFrame {
      */
     
     public Users adminU = new Users();
+    String rutaBackup="C:/MEIA/backup.txt";
+    String rutadescBackup="C:/MEIA/desc_Backup.txt";
     public menuPrincipal(Users usuario) {
         
         adminU = usuario;
         initComponents();
+        
         String rutaImagen = usuario.getPathFotografia();
         if (rutaImagen != null) {
             ImageIcon imagenIcon = new ImageIcon(rutaImagen);
@@ -166,7 +169,16 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
         // TODO add your handling code here:
-        
+        ManipulateFiles archi=new ManipulateFiles();
+        String rutaDirBackup=archi.backupDirectory("C:/MEIA");
+        String lineaArch=rutaDirBackup+"|"+adminU.getUsuario()+"|"+archi.ObtenerHoraActual();
+        String lineaDesc="usuario"+"|"+archi.ObtenerHoraActual()+"|"+adminU.getUsuario()+"|"+archi.ObtenerHoraActual()+"|"+adminU.getUsuario()+"|"+"0";
+        try {
+            archi.WriteAFile(lineaArch,true,rutaBackup);//String linea, boolean save, String rutaArchivo
+            archi.WriteABackupDescriptor(rutadescBackup, lineaDesc);
+        } catch (IOException ex) {
+            Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         register registerFrame = new register('0');
            registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
            registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
@@ -184,9 +196,9 @@ public class menuPrincipal extends javax.swing.JFrame {
                     try{
                     archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
                     String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
-                    archi.WriteADescriptor(adminU,rutadescbitUsuario,lineabit,0);
+                    archi.WriteADescriptor(adminU,rutadescbitUsuario,lineabit,0,0);
                     String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
-                    archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,1);
+                    archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,1,0);
                     }
                     catch(IOException e){ 
                     }
