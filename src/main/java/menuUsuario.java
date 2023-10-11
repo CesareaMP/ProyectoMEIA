@@ -22,8 +22,7 @@ public class menuUsuario extends javax.swing.JFrame {
     public menuUsuario(Users usuario) {
         initComponents();
         Usuario = usuario;
-        
-        initComponents();
+
         String rutaImagen = usuario.getPathFotografia();
         if (rutaImagen != null) {
             ImageIcon imagenIcon = new ImageIcon(rutaImagen);
@@ -32,6 +31,14 @@ public class menuUsuario extends javax.swing.JFrame {
             ImageIcon imagenRedimensionadaIcon = new ImageIcon(imagenRedimensionada);
             lblImagenPerfil.setIcon(imagenRedimensionadaIcon);
         }
+        
+        
+        lblUsuarioU.setText(Usuario.getUsuario());
+        lblNombreU.setText(Usuario.getNombre());
+        lblApellidoU.setText(Usuario.getApellido());
+        lblFNU.setText(Usuario.getFechaNacimiento());
+        lblCorreoU.setText(Usuario.getCorreoElectronico());
+        lblTelefonoU.setText(String.valueOf(Usuario.getTelefono()));
         
     }
     
@@ -80,6 +87,9 @@ public class menuUsuario extends javax.swing.JFrame {
         lblFNU = new javax.swing.JLabel();
         lblCorreoU = new javax.swing.JLabel();
         lblTelefonoU = new javax.swing.JLabel();
+        btnEditar = new javax.swing.JButton();
+        btnDDB = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -195,7 +205,7 @@ public class menuUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(458, 674));
-        setPreferredSize(new java.awt.Dimension(458, 674));
+        setResizable(false);
 
         lblNombre2.setBackground(new java.awt.Color(255, 193, 112));
         lblNombre2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -254,37 +264,73 @@ public class menuUsuario extends javax.swing.JFrame {
         lblUsuarioU.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lblUsuarioU.setForeground(new java.awt.Color(0, 0, 0));
         lblUsuarioU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsuarioU.setText("u");
         lblUsuarioU.setOpaque(true);
 
         lblNombreU.setBackground(new java.awt.Color(255, 180, 123));
         lblNombreU.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lblNombreU.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreU.setText("u");
         lblNombreU.setOpaque(true);
 
         lblApellidoU.setBackground(new java.awt.Color(255, 180, 123));
         lblApellidoU.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lblApellidoU.setForeground(new java.awt.Color(0, 0, 0));
         lblApellidoU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblApellidoU.setText("u");
         lblApellidoU.setOpaque(true);
 
         lblFNU.setBackground(new java.awt.Color(255, 180, 123));
         lblFNU.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lblFNU.setForeground(new java.awt.Color(0, 0, 0));
         lblFNU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFNU.setText("u");
         lblFNU.setOpaque(true);
 
         lblCorreoU.setBackground(new java.awt.Color(255, 180, 123));
         lblCorreoU.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lblCorreoU.setForeground(new java.awt.Color(0, 0, 0));
         lblCorreoU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCorreoU.setText("u");
         lblCorreoU.setOpaque(true);
 
         lblTelefonoU.setBackground(new java.awt.Color(255, 180, 123));
         lblTelefonoU.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lblTelefonoU.setForeground(new java.awt.Color(0, 0, 0));
         lblTelefonoU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTelefonoU.setText("u");
         lblTelefonoU.setOpaque(true);
+
+        btnEditar.setBackground(new java.awt.Color(255, 204, 112));
+        btnEditar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(0, 0, 0));
+        btnEditar.setText("EDITAR DATOS");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnDDB.setBackground(new java.awt.Color(255, 204, 112));
+        btnDDB.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnDDB.setForeground(new java.awt.Color(0, 0, 0));
+        btnDDB.setText("DARSE DE BAJA");
+        btnDDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDDBActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setBackground(new java.awt.Color(255, 204, 112));
+        btnSalir.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(0, 0, 0));
+        btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -323,16 +369,22 @@ public class menuUsuario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblNombre8, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblImagenPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 18, Short.MAX_VALUE)))
+                                .addComponent(lblImagenPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEditar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDDB, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblNombre8, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                     .addComponent(lblImagenPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -360,7 +412,12 @@ public class menuUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTelefonoU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(117, 117, 117))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDDB, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -373,6 +430,24 @@ public class menuUsuario extends javax.swing.JFrame {
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
 
     }//GEN-LAST:event_btnRegistrarseActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+
+        
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnDDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDDBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDDBActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        login loginMenu = new login();
+        loginMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+        loginMenu.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+        loginMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -417,8 +492,11 @@ public class menuUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDDB;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnFoto;
     private javax.swing.JButton btnRegistrarse;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblApellido;

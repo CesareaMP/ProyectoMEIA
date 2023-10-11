@@ -14,8 +14,17 @@ import javax.swing.ImageIcon;
  *
  * @author CASTA y Cesart
  */
+
+
+
 public class menuPrincipal extends javax.swing.JFrame {
 
+    
+    String rutaUsuario = "C:/MEIA/usuario.txt";
+    String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
+    String rutabitUsuario = "C:/MEIA/bitusuario.txt";
+    String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
+    
     /**
      * Creates new form menuPrincipal
      */
@@ -54,8 +63,10 @@ public class menuPrincipal extends javax.swing.JFrame {
         btnBackup1 = new javax.swing.JButton();
         lblNombre = new javax.swing.JLabel();
         lblImagen = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -98,6 +109,16 @@ public class menuPrincipal extends javax.swing.JFrame {
         lblNombre.setText("USUARIO: WILBERT (ADMIN)");
         lblNombre.setOpaque(true);
 
+        btnSalir.setBackground(new java.awt.Color(255, 204, 112));
+        btnSalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(0, 0, 0));
+        btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,7 +132,8 @@ public class menuPrincipal extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btnRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(26, 26, 26)
@@ -128,13 +150,15 @@ public class menuPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(btnRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(20, 20, 20)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -155,6 +179,18 @@ public class menuPrincipal extends javax.swing.JFrame {
         {
             // TODO add your handling code here:
             
+            ManipulateFiles archi = new ManipulateFiles();
+        
+                    try{
+                    archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
+                    String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+                    archi.WriteADescriptor(adminU,rutadescbitUsuario,lineabit,0);
+                    String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
+                    archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,1);
+                    }
+                    catch(IOException e){ 
+                    }
+            
             registrosMenu registrosMenu = new registrosMenu(adminU);
             registrosMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
             registrosMenu.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
@@ -169,6 +205,14 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void btnBackup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackup1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackup1ActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        login loginMenu = new login();
+        loginMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+        loginMenu.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+        loginMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,6 +260,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnBackup;
     private javax.swing.JButton btnBackup1;
     private javax.swing.JButton btnRegistros;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblNombre;
