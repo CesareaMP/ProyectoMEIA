@@ -187,7 +187,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                     String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
                     archi.WriteADescriptor(adminU,rutadescbitUsuario,lineabit,0,0);
                     String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
-                    archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,1,0);
+                    archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
                     }
                     catch(IOException e){ 
                     }
@@ -205,6 +205,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private void btnBackup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackup1ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnBackup1ActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

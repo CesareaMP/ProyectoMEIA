@@ -366,7 +366,9 @@ private String obtenerRutaImagen() {
     if (result == JFileChooser.APPROVE_OPTION) {
         // El usuario ha seleccionado un archivo
         java.io.File selectedFile = fileChooser.getSelectedFile();
-        return selectedFile.getAbsolutePath(); // Retorna la ruta del archivo
+        String nuevaRuta=archi.copyImage(selectedFile.getAbsolutePath(), "C:/MEIA/Pictures");
+        return nuevaRuta;
+// Retorna la ruta del archivo
     } else {
         // El usuario ha cancelado la selección o algo salió mal
         return null; // Retorna null en caso de cancelación o error

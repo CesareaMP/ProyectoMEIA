@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -319,49 +320,54 @@ public class ManipulateFiles {
         WriteADescriptor(whoEdit,rutaDescriptor,lineabit,256,0);
     }    
     
-    public String backupDirectory(String rutaOrigen) {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        fileChooser.setDialogTitle("Seleccionar carpeta de destino");
-        int resultado = fileChooser.showDialog(null, "Seleccionar carpeta");
+   public String backupDirectory(String rutaOrigen) {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    fileChooser.setDialogTitle("Seleccionar carpeta de destino");
+    int resultado = fileChooser.showDialog(null, "Seleccionar carpeta");
 
-        if (resultado == JFileChooser.APPROVE_OPTION) {
-            String rutaDestino = fileChooser.getSelectedFile().getAbsolutePath();
-            File carpetaOrigen = new File(rutaOrigen);
-            String nombreCarpetaDestino = carpetaOrigen.getName() + "_Backup";
-            File carpetaDestino = new File(rutaDestino, nombreCarpetaDestino);
+    if (resultado == JFileChooser.APPROVE_OPTION) {
+        String rutaDestino = fileChooser.getSelectedFile().getAbsolutePath();
+        File carpetaOrigen = new File(rutaOrigen);
+        String nombreCarpetaDestino = carpetaOrigen.getName() + "_Backup";
+        File carpetaDestino = new File(rutaDestino, nombreCarpetaDestino);
 
-            try {
-                if (!carpetaDestino.exists()) {
-                    carpetaDestino.mkdirs();
-                }
-
-                copyFolder(carpetaOrigen, carpetaDestino);
-                return carpetaDestino.getAbsolutePath();
-            } catch (IOException e) {
-                System.err.println("Error al copiar la carpeta: " + e.getMessage());
+        try {
+            if (!carpetaDestino.exists()) {
+                carpetaDestino.mkdirs();
             }
-        }
 
-        return null;
-    }
-
-    private void copyFolder(File source, File destination) throws IOException {
-        if (source.isDirectory()) {
-            String[] files = source.list();
-
-            if (files != null) {
-                for (String file : files) {
-                    File srcFile = new File(source, file);
-                    File destFile = new File(destination, file);
-
-                    copyFolder(srcFile, destFile);
-                }
-            }
-        } else {
-            Files.copy(source.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            copyFolder(carpetaOrigen, carpetaDestino);
+            return carpetaDestino.getAbsolutePath();
+        } catch (IOException e) {
+            System.err.println("Error al copiar la carpeta: " + e.getMessage());
         }
     }
+
+    return null;
+}
+
+private void copyFolder(File source, File destination) throws IOException {
+    if (source.isDirectory()) {
+        if (!destination.exists()) {
+            destination.mkdirs();
+        }
+
+        String[] files = source.list();
+
+        if (files != null) {
+            for (String file : files) {
+                File srcFile = new File(source, file);
+                File destFile = new File(destination, file);
+
+                copyFolder(srcFile, destFile);
+            }
+        }
+    } else {
+        Files.copy(source.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+    }
+}
+
     
     public int countLines(String rutaArchivo) {
         int lineCount = 0;
@@ -416,5 +422,24 @@ public class ManipulateFiles {
         }
         }
     }
+    
+    public String copyImage(String rutaOrigen, String carpetaDestino) {
+        try {
+            File archivoOrigen = new File(rutaOrigen);
+            File directorioDestino = new File(carpetaDestino);
+            directorioDestino.mkdirs();  // Asegura que la carpeta de destino existe
+
+            String nombreArchivo = archivoOrigen.getName();
+            Path rutaNueva = directorioDestino.toPath().resolve(nombreArchivo);
+
+            Files.copy(archivoOrigen.toPath(), rutaNueva, StandardCopyOption.REPLACE_EXISTING);
+
+            return rutaNueva.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;  // En caso de error, retorna null
+        }
+    }
+    
     
 }
