@@ -21,7 +21,6 @@ public class menuPrincipal extends javax.swing.JFrame {
      */
     
     public Users adminU = new Users();
-    
     public menuPrincipal(Users usuario) {
         
         adminU = usuario;

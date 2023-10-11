@@ -174,7 +174,7 @@ public class ManipulateFiles {
         SortFile(rutaArchivo);        
     }
     
-     public static List<Users> EnListFile(String nombreArchivo) throws FileNotFoundException, IOException {
+     public List<Users> EnListFile(String nombreArchivo) throws FileNotFoundException, IOException {
     FileReader leerFila = new FileReader(nombreArchivo);
     
     List<Users> resultList = new ArrayList<>();
