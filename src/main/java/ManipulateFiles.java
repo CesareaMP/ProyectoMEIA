@@ -252,7 +252,7 @@ public class ManipulateFiles {
     public int FindUser(Users who,List<Users> users) throws IOException{
         Users admin=FindAdmin(users);
         for (int i = 0; i < users.size(); i++) {
-        if (users.get(i).equals(who) && !users.get(i).equals(admin)) {
+        if (users.get(i).getUsuario().equals(who.getUsuario()) && !users.get(i).getUsuario().equals(admin.getUsuario())) {
             return i; // Termina el bucle una vez que se elimina el objeto
         }        
     }
@@ -269,7 +269,7 @@ public class ManipulateFiles {
     List<Users> users = new ArrayList<>();
     List<Users> usersBinnacle = new ArrayList<>();
     users = EnListFile(rutaUsuario);
-    usersBinnacle = EnListFile(rutaUsuario);
+    usersBinnacle = EnListFile(rutaBinnacle);
     DeleteFile(rutaUsuario);
     DeleteFile(rutaBinnacle);
     
