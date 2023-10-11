@@ -29,7 +29,9 @@ public class registrosMenu extends javax.swing.JFrame {
      * Creates new form registrosMenu
      */
     public String nombreArchivo = "C:/MEIA/usuario.txt";
+    public String rutaBinacle = "C:/MEIA/bitusuario.txt";
     
+    public List<Users> listaRegistros = new ArrayList<>();
     public Users adminU = new Users();
     
     public List<Users> ConvertFileToList (String rutaArchivo) throws FileNotFoundException, IOException
@@ -55,7 +57,6 @@ public class registrosMenu extends javax.swing.JFrame {
     public registrosMenu(Users adminUser) throws IOException {
         initComponents();
         DefaultListModel modeloListaRegistros = new DefaultListModel();
-        List<Users> listaRegistros = new ArrayList<>();
         listaRegistros = ConvertFileToList(nombreArchivo);
         for(int i = 0; i<listaRegistros.size();i++)
         {
@@ -399,11 +400,31 @@ public class registrosMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarTelefonoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+
+        ManipulateFiles MPF = new ManipulateFiles();
+        
+        int selIndex = JlistRegistros.getSelectedIndex();
+        List<Users> users = new ArrayList<>();
+        
+        try
+        {
+            users = MPF.EnListFile(nombreArchivo);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(registrosMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Users usuarioAEliminar = users.get(selIndex);
+        
+        
+        
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
