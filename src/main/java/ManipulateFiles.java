@@ -293,6 +293,21 @@ public class ManipulateFiles {
         for (int i = 0; i < usersBinnacle.size(); i++) {
             WriteAFile(users.get(i).UserToString(),true,rutaBinnacle);
         }
-}
+    }
     
+    public void EditUser(Users edit,String rutaArchivo, String rutaDescriptor, Users whoEdit) throws IOException{
+        List<Users> alluser=EnListFile(rutaArchivo);
+        for (int i = 0; i < alluser.size(); i++) {
+            if (edit.getUsuario().equals(alluser.get(i).getUsuario())) {
+                alluser.set(i, edit);
+                break;
+            }
+        }
+        DeleteFile(rutaArchivo);
+        for (int i = 0; i < alluser.size(); i++) {
+            WriteAFile(alluser.get(i).UserToString(),true,rutaArchivo);
+        }
+        String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+        WriteADescriptor(whoEdit,rutaDescriptor,lineabit,256);
+    }    
 }
