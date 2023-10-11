@@ -1,3 +1,8 @@
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -9,19 +14,25 @@
  * @author CASTA
  */
 public class menuBackups extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form menuBackups
      */
     public Users adminU = new Users();
     public menuBackups(Users usuario) {
         initComponents();
+        adminU=usuario;
     }
 
     private menuBackups() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+String rutaUsuario = "C:/MEIA/usuario.txt";
+    String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
+    String rutabitUsuario = "C:/MEIA/bitusuario.txt";
+    String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
+    String rutaBackup="C:/MEIA/backup.txt";
+    String rutadescBackup="C:/MEIA/desc_Backup.txt";
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -153,7 +164,17 @@ public class menuBackups extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-
+        ManipulateFiles archi=new ManipulateFiles();
+        String rutaDirBackup=archi.backupDirectory("C:/MEIA");
+        String lineaArch=rutaDirBackup+"|"+adminU.getUsuario()+"|"+archi.ObtenerHoraActual();
+        String lineaDesc="usuario"+"|"+archi.ObtenerHoraActual()+"|"+adminU.getUsuario()+"|"+archi.ObtenerHoraActual()+"|"+adminU.getUsuario()+"|"+"1";
+        try {
+            archi.WriteAFile(lineaArch,true,rutaBackup);//String linea, boolean save, String rutaArchivo
+            archi.WriteABackupDescriptor(rutadescBackup, lineaDesc);
+        } catch (IOException ex) {
+            Logger.getLogger(menuBackups.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed

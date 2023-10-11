@@ -176,17 +176,7 @@ public class login extends javax.swing.JFrame {
                     
                     ManipulateFiles archi = new ManipulateFiles();
         
-                    try{
-                    archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
-                    String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
-                    archi.WriteADescriptor(usuario,rutadescbitUsuario,lineabit,0,0);
-                    String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + usuario.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
-                    archi.WriteADescriptor(usuario,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
-                    }
-                    catch(IOException e){
-                        
-                    }
-        
+                
                     
                 }
                 else{//no es admin

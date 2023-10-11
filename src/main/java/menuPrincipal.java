@@ -24,14 +24,13 @@ public class menuPrincipal extends javax.swing.JFrame {
     String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
     String rutabitUsuario = "C:/MEIA/bitusuario.txt";
     String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
-    
+     
     /**
      * Creates new form menuPrincipal
      */
     
     public Users adminU = new Users();
-    String rutaBackup="C:/MEIA/backup.txt";
-    String rutadescBackup="C:/MEIA/desc_Backup.txt";
+   
     public menuPrincipal(Users usuario) {
         
         adminU = usuario;
@@ -169,20 +168,10 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
         // TODO add your handling code here:
-        ManipulateFiles archi=new ManipulateFiles();
-        String rutaDirBackup=archi.backupDirectory("C:/MEIA");
-        String lineaArch=rutaDirBackup+"|"+adminU.getUsuario()+"|"+archi.ObtenerHoraActual();
-        String lineaDesc="usuario"+"|"+archi.ObtenerHoraActual()+"|"+adminU.getUsuario()+"|"+archi.ObtenerHoraActual()+"|"+adminU.getUsuario()+"|"+"0";
-        try {
-            archi.WriteAFile(lineaArch,true,rutaBackup);//String linea, boolean save, String rutaArchivo
-            archi.WriteABackupDescriptor(rutadescBackup, lineaDesc);
-        } catch (IOException ex) {
-            Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        register registerFrame = new register('0');
-           registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-           registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
-           registerFrame.setVisible(true);
+        menuBackups backupFrame = new menuBackups(adminU);
+           backupFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+           backupFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
+           backupFrame.setVisible(true);
            this.dispose();
     }//GEN-LAST:event_btnBackupActionPerformed
 
