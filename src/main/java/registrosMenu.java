@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -59,8 +60,8 @@ public class registrosMenu extends javax.swing.JFrame {
     
     public registrosMenu(Users adminUser) throws IOException {
         initComponents();
-        DefaultListModel modeloListaRegistros = new DefaultListModel();
         listaRegistros = ConvertFileToList(nombreArchivo);
+        DefaultListModel modeloListaRegistros = new DefaultListModel();
         for(int i = 0; i<listaRegistros.size();i++)
         {
             if(listaRegistros.get(i).getEstatus() != '0')
@@ -68,8 +69,6 @@ public class registrosMenu extends javax.swing.JFrame {
                 modeloListaRegistros.addElement(listaRegistros.get(i).UserPrint());
                 listaRegistrosMostrados.add(listaRegistros.get(i).UserPrint());
             }
-            
-            
         }
         JlistRegistros.setModel(modeloListaRegistros);
         
@@ -94,10 +93,8 @@ public class registrosMenu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         txtSearchUsuario = new javax.swing.JTextField();
         txtSearchNombre = new javax.swing.JTextField();
-        txtSearchTelefono = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -106,7 +103,6 @@ public class registrosMenu extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         btnBuscarUsuario = new javax.swing.JButton();
         btnBuscarNombre = new javax.swing.JButton();
-        btnBuscarTelefono = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         JlistRegistros = new javax.swing.JList<>();
         canvas1 = new java.awt.Canvas();
@@ -114,6 +110,7 @@ public class registrosMenu extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnAñadir = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        btnRecargar = new javax.swing.JButton();
 
         txtPassword2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,13 +144,6 @@ public class registrosMenu extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("NOMBRE");
         jLabel4.setOpaque(true);
-
-        jLabel5.setBackground(new java.awt.Color(255, 193, 112));
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("TELEFONO");
-        jLabel5.setOpaque(true);
 
         lblName.setBackground(new java.awt.Color(255, 193, 112));
         lblName.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -217,16 +207,6 @@ public class registrosMenu extends javax.swing.JFrame {
             }
         });
 
-        btnBuscarTelefono.setBackground(new java.awt.Color(255, 204, 112));
-        btnBuscarTelefono.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnBuscarTelefono.setForeground(new java.awt.Color(0, 0, 0));
-        btnBuscarTelefono.setText("BUSCAR");
-        btnBuscarTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarTelefonoActionPerformed(evt);
-            }
-        });
-
         JlistRegistros.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         JlistRegistros.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "njghmuktj" };
@@ -276,6 +256,16 @@ public class registrosMenu extends javax.swing.JFrame {
             }
         });
 
+        btnRecargar.setBackground(new java.awt.Color(255, 204, 112));
+        btnRecargar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnRecargar.setForeground(new java.awt.Color(0, 0, 0));
+        btnRecargar.setText("RECARGAR");
+        btnRecargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -315,22 +305,20 @@ public class registrosMenu extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtSearchUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtSearchNombre)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSearchUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSearchNombre))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSearchTelefono)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnBuscarNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(btnBuscarTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBuscarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnBuscarNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                    .addComponent(btnBuscarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnRecargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -346,6 +334,8 @@ public class registrosMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRecargar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,11 +349,7 @@ public class registrosMenu extends javax.swing.JFrame {
                                 .addComponent(txtSearchNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnBuscarNombre))
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSearchTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscarTelefono)))
+                        .addGap(8, 8, 8))
                     .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -381,7 +367,7 @@ public class registrosMenu extends javax.swing.JFrame {
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -393,20 +379,34 @@ public class registrosMenu extends javax.swing.JFrame {
 
     private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
         // TODO add your handling code here:
-        register registerFrame = new register('0');
-        registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-        registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
-        registerFrame.setVisible(true);
-        this.dispose();
+        if(!"".equals(txtSearchUsuario.getText()))
+        {
+            List<String> ListaResults = GetCoinciding(txtSearchUsuario.getText(),1);
+            
+            DefaultListModel modeloListaRegistros = new DefaultListModel();
+            for(int i = 0; i<ListaResults.size();i++)
+            {
+                    modeloListaRegistros.addElement(ListaResults.get(i));
+            }
+            JlistRegistros.setModel(modeloListaRegistros);
+        }
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
     private void btnBuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarNombreActionPerformed
-        // TODO add your handling code here:
+        
+        if(!"".equals(txtSearchNombre.getText()))
+        {
+            List<String> ListaResults = GetCoinciding(txtSearchNombre.getText(),2);
+            
+            DefaultListModel modeloListaRegistros = new DefaultListModel();
+            for(int i = 0; i<ListaResults.size();i++)
+            {
+                    modeloListaRegistros.addElement(ListaResults.get(i));
+            }
+            JlistRegistros.setModel(modeloListaRegistros);
+        }
+        
     }//GEN-LAST:event_btnBuscarNombreActionPerformed
-
-    private void btnBuscarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarTelefonoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
@@ -416,33 +416,34 @@ public class registrosMenu extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
         ManipulateFiles MPF = new ManipulateFiles();
-        
         String SelUserString = JlistRegistros.getSelectedValue();
         int selIndex = listaRegistrosMostrados.indexOf(SelUserString);
-        
         List<Users> users = new ArrayList<>();
         
         try
         {
             users = MPF.EnListFile(nombreArchivo);
             Users usuarioAEliminar = users.get(selIndex);
-            MPF.DeleteFromFiles(usuarioAEliminar,nombreArchivo,rutaBinacle,rutadescUsuario,rutadescbitUsuario,adminU);
-            listaRegistros.get(selIndex).setEstatus('0');
+            if(usuarioAEliminar.getRol() != '1')
+            {
+                MPF.DeleteFromFiles(usuarioAEliminar,nombreArchivo,rutaBinacle,rutadescUsuario,rutadescbitUsuario,adminU);
+                listaRegistros.get(selIndex).setEstatus('0');
+                
+                DefaultListModel modeloListaRegistros = new DefaultListModel();
+                for(int i = 0; i<listaRegistros.size();i++)
+                    {
+                if(listaRegistros.get(i).getEstatus() != '0')
+                {
+                    modeloListaRegistros.addElement(listaRegistros.get(i).UserPrint());
+                }
+                    }
+        JlistRegistros.setModel(modeloListaRegistros);
+                
+            }
         } catch (IOException ex)
         {
             Logger.getLogger(registrosMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-
-        DefaultListModel modeloListaRegistros = new DefaultListModel();
-        for(int i = 0; i<listaRegistros.size();i++)
-        {
-            if(listaRegistros.get(i).getEstatus() != '0')
-            {
-                modeloListaRegistros.addElement(listaRegistros.get(i).UserPrint());
-            }
-        }
-        JlistRegistros.setModel(modeloListaRegistros);
         
         
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -462,6 +463,19 @@ public class registrosMenu extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
+
+        DefaultListModel modeloListaRegistros = new DefaultListModel();
+                for(int i = 0; i<listaRegistros.size();i++)
+                    {
+                if(listaRegistros.get(i).getEstatus() != '0')
+                {
+                    modeloListaRegistros.addElement(listaRegistros.get(i).UserPrint());
+                }
+                    }
+        JlistRegistros.setModel(modeloListaRegistros);
+    }//GEN-LAST:event_btnRecargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -509,10 +523,10 @@ public class registrosMenu extends javax.swing.JFrame {
     private javax.swing.JList<String> JlistRegistros;
     private javax.swing.JButton btnAñadir;
     private javax.swing.JButton btnBuscarNombre;
-    private javax.swing.JButton btnBuscarTelefono;
     private javax.swing.JButton btnBuscarUsuario;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRecargar;
     private javax.swing.JButton btnRegresar;
     private java.awt.Canvas canvas1;
     private javax.swing.JLabel jLabel1;
@@ -521,7 +535,6 @@ public class registrosMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -529,8 +542,30 @@ public class registrosMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblName;
     private javax.swing.JTextField txtPassword2;
     private javax.swing.JTextField txtSearchNombre;
-    private javax.swing.JTextField txtSearchTelefono;
     private javax.swing.JTextField txtSearchUsuario;
     // End of variables declaration//GEN-END:variables
 
+    public List<String> GetCoinciding (String search, int searchType)
+    {
+        List<String> resultLists = new ArrayList<>();
+        for(int i = 0; i < listaRegistros.size();i++)
+        {
+            switch(searchType)
+            {
+                case 1:
+                    if(listaRegistros.get(i).getUsuario().equals(search) && listaRegistros.get(i).getEstatus() != '0')
+                    {
+                        resultLists.add(listaRegistros.get(i).UserPrint());
+                    }
+                    break;
+                case 2:
+                    if(listaRegistros.get(i).getNombre().equals(search) && listaRegistros.get(i).getEstatus() != '0')
+                    {
+                        resultLists.add(listaRegistros.get(i).UserPrint());
+                    }
+                    break;
+            }
+        }
+        return resultLists;
+    }
 }
