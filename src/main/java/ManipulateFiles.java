@@ -7,10 +7,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import javax.swing.JFileChooser;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -65,7 +68,7 @@ public class ManipulateFiles {
     
     return lineCount;
     }
-    public void WriteADescriptor(Users usuario, String rutaArchivo, String lineaEnvio, int valor) throws IOException{
+    public void WriteADescriptor(Users usuario, String rutaArchivo, String lineaEnvio, int valor, int counts) throws IOException{
         if (WritedFile(rutaArchivo)==false) {
             File archivo = new File(rutaArchivo);
             try{                
@@ -115,6 +118,11 @@ public class ManipulateFiles {
                total += canti;
                partes[6] = String.valueOf(canti);
             }
+             else if(valor==-2){
+                 int canti = Integer.parseInt(partes[6]) + counts;
+                 total+=canti;
+                 partes[6] = String.valueOf(canti);
+             }
             partes[5] = String.valueOf(total);
 
             // Reemplaza la primera línea original con la línea actualizada
@@ -125,7 +133,7 @@ public class ManipulateFiles {
 
             // Elimina el último "|" agregado en el ciclo anterior
             nuevaLinea.deleteCharAt(nuevaLinea.length() - 1);
-            WriteADescriptor(usuario,rutaArchivo,nuevaLinea.toString(), valor);
+            WriteADescriptor(usuario,rutaArchivo,nuevaLinea.toString(), valor,0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -262,7 +270,7 @@ public class ManipulateFiles {
     private void EditDescriptorByAdmin(String rutaUsuario, String rutaDescriptor, int action) throws IOException{
         Users admin=FindAdmin(EnListFile(rutaUsuario));
         String lineadesc = "usuario" + "|" + ObtenerHoraActual() + "|" + admin.getUsuario() + "|" + ObtenerHoraActual() + "|" + admin.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
-        WriteADescriptor(admin,rutaDescriptor,lineadesc,action);
+        WriteADescriptor(admin,rutaDescriptor,lineadesc,action,0);
     }
    
     public void DeleteFromFiles(Users delete, String rutaUsuario, String rutaBinnacle, String rutaUsuDescriptor,String rutaBinDescriptor, Users whoDeletes) throws IOException {
@@ -281,11 +289,11 @@ public class ManipulateFiles {
     
         if (indexuser!=-1) {
             users.get(indexuser).setEstatus('0');
-            WriteADescriptor(whoDeletes,rutaUsuDescriptor,lineabit,-1);
+            WriteADescriptor(whoDeletes,rutaUsuDescriptor,lineabit,-1,0);
         }
         if (indexbinnacle!=-1) {
             usersBinnacle.get(indexuser).setEstatus('0');
-            WriteADescriptor(whoDeletes,rutaBinDescriptor,lineabit,-1);
+            WriteADescriptor(whoDeletes,rutaBinDescriptor,lineabit,-1,0);
         }    
         for (int i = 0; i < users.size(); i++) {
             WriteAFile(users.get(i).UserToString(),true,rutaUsuario);
@@ -308,6 +316,105 @@ public class ManipulateFiles {
             WriteAFile(alluser.get(i).UserToString(),true,rutaArchivo);
         }
         String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
-        WriteADescriptor(whoEdit,rutaDescriptor,lineabit,256);
+        WriteADescriptor(whoEdit,rutaDescriptor,lineabit,256,0);
     }    
+    
+    public String backupDirectory(String rutaOrigen) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setDialogTitle("Seleccionar carpeta de destino");
+        int resultado = fileChooser.showDialog(null, "Seleccionar carpeta");
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            String rutaDestino = fileChooser.getSelectedFile().getAbsolutePath();
+            File carpetaOrigen = new File(rutaOrigen);
+            String nombreCarpetaDestino = carpetaOrigen.getName() + "_Backup";
+            File carpetaDestino = new File(rutaDestino, nombreCarpetaDestino);
+
+            try {
+                if (!carpetaDestino.exists()) {
+                    carpetaDestino.mkdirs();
+                }
+
+                copyFolder(carpetaOrigen, carpetaDestino);
+                return carpetaDestino.getAbsolutePath();
+            } catch (IOException e) {
+                System.err.println("Error al copiar la carpeta: " + e.getMessage());
+            }
+        }
+
+        return null;
+    }
+
+    private void copyFolder(File source, File destination) throws IOException {
+        if (source.isDirectory()) {
+            String[] files = source.list();
+
+            if (files != null) {
+                for (String file : files) {
+                    File srcFile = new File(source, file);
+                    File destFile = new File(destination, file);
+
+                    copyFolder(srcFile, destFile);
+                }
+            }
+        } else {
+            Files.copy(source.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+    
+    public int countLines(String rutaArchivo) {
+        int lineCount = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+            while (br.readLine() != null) {
+                lineCount++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lineCount;
+    }
+    
+    public void WriteABackupDescriptor(String rutaArchivo, String lineaEnvio) throws IOException{
+        if (WritedFile(rutaArchivo)==false) {
+            File archivo = new File(rutaArchivo);                    
+            WriteAFile(lineaEnvio,false,rutaArchivo);
+        }
+        else{
+            try {
+            // Abre el archivo para lectura
+            FileReader fileReader = new FileReader(rutaArchivo);
+
+            // Crea un BufferedReader para leer líneas
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            // Lee la primera línea del archivo
+            String primeraLinea = bufferedReader.readLine();
+
+            // Cierra el BufferedReader
+            bufferedReader.close();
+            FileWriter fileWriter = new FileWriter(rutaArchivo);
+            // Cierra el FileWriter sin escribir nada
+            fileWriter.close();
+            String[] partes = primeraLinea.split("\\|");
+            int canti = Integer.parseInt(partes[5]) + 1;
+            partes[5] = String.valueOf(canti);
+
+            // Reemplaza la primera línea original con la línea actualizada
+            StringBuilder nuevaLinea = new StringBuilder();
+            for (String parte : partes) {
+                nuevaLinea.append(parte).append("|");
+            }
+
+            // Elimina el último "|" agregado en el ciclo anterior
+            nuevaLinea.deleteCharAt(nuevaLinea.length() - 1);
+            WriteABackupDescriptor(rutaArchivo,nuevaLinea.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
+    }
+    
 }

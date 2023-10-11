@@ -256,20 +256,20 @@ public class register extends javax.swing.JFrame {
                                 archi.WriteABinnacle(linearch,rutabitUsuario,rutaUsuario);
                                 archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
                                 String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
-                                archi.WriteADescriptor(persona,rutadescbitUsuario,lineabit,0);
+                                archi.WriteADescriptor(persona,rutadescbitUsuario,lineabit,0,0);
                                 String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
-                                archi.WriteADescriptor(persona,rutadescUsuario,lineadesc,1);
+                                archi.WriteADescriptor(persona,rutadescUsuario,lineadesc,1,0);
                             }
                             else{
                                 archi.WriteABinnacle(linearch,rutabitUsuario,rutaUsuario);
                                 archi.ReorganizeFile(rutaUsuario,rutaUsuario);
                                 String lineaEnvio = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
-                                archi.WriteADescriptor(persona,rutadescbitUsuario,lineaEnvio,1);
+                                archi.WriteADescriptor(persona,rutadescbitUsuario,lineaEnvio,1,0);
                                 if (archi.LargeOfFile(rutabitUsuario)==3) {
                                     archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
                                     String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
-                                    archi.WriteADescriptor(persona,rutadescbitUsuario,lineadesc,0);
-                                    archi.WriteADescriptor(persona,rutadescUsuario,lineadesc,2);
+                                    archi.WriteADescriptor(persona,rutadescbitUsuario,lineadesc,0,0);
+                                    archi.WriteADescriptor(persona,rutadescUsuario,lineadesc,2,0);
                                 }
                                 
                                 
