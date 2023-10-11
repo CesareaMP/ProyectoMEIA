@@ -28,9 +28,9 @@ public class register extends javax.swing.JFrame {
      * Creates new form register
      */
     String rutaUsuario = "C:/MEIA/usuario.txt";
-    String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
     String rutabitUsuario = "C:/MEIA/bitusuario.txt";
     String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
+    String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
     ManipulateFiles archi=new ManipulateFiles();
     char rol;
     String path_fotografia="";

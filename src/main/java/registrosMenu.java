@@ -30,8 +30,11 @@ public class registrosMenu extends javax.swing.JFrame {
      */
     public String nombreArchivo = "C:/MEIA/usuario.txt";
     public String rutaBinacle = "C:/MEIA/bitusuario.txt";
+    public String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
+    public String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
     
     public List<Users> listaRegistros = new ArrayList<>();
+    public List<String> listaRegistrosMostrados = new ArrayList<>();
     public Users adminU = new Users();
     
     public List<Users> ConvertFileToList (String rutaArchivo) throws FileNotFoundException, IOException
@@ -60,7 +63,13 @@ public class registrosMenu extends javax.swing.JFrame {
         listaRegistros = ConvertFileToList(nombreArchivo);
         for(int i = 0; i<listaRegistros.size();i++)
         {
-            modeloListaRegistros.addElement(listaRegistros.get(i).UserPrint());
+            if(listaRegistros.get(i).getEstatus() != '0')
+            {
+                modeloListaRegistros.addElement(listaRegistros.get(i).UserPrint());
+                listaRegistrosMostrados.add(listaRegistros.get(i).UserPrint());
+            }
+            
+            
         }
         JlistRegistros.setModel(modeloListaRegistros);
         
@@ -402,27 +411,38 @@ public class registrosMenu extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
         
-        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
         ManipulateFiles MPF = new ManipulateFiles();
         
-        int selIndex = JlistRegistros.getSelectedIndex();
+        String SelUserString = JlistRegistros.getSelectedValue();
+        int selIndex = listaRegistrosMostrados.indexOf(SelUserString);
+        
         List<Users> users = new ArrayList<>();
         
         try
         {
             users = MPF.EnListFile(nombreArchivo);
+            Users usuarioAEliminar = users.get(selIndex);
+            MPF.DeleteFromFiles(usuarioAEliminar,nombreArchivo,rutaBinacle,rutadescUsuario,rutadescbitUsuario,adminU);
+            listaRegistros.get(selIndex).setEstatus('0');
         } catch (IOException ex)
         {
             Logger.getLogger(registrosMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Users usuarioAEliminar = users.get(selIndex);
-        
-        
+
+        DefaultListModel modeloListaRegistros = new DefaultListModel();
+        for(int i = 0; i<listaRegistros.size();i++)
+        {
+            if(listaRegistros.get(i).getEstatus() != '0')
+            {
+                modeloListaRegistros.addElement(listaRegistros.get(i).UserPrint());
+            }
+        }
+        JlistRegistros.setModel(modeloListaRegistros);
         
         
     }//GEN-LAST:event_btnEliminarActionPerformed
