@@ -245,7 +245,7 @@ public class login extends javax.swing.JFrame {
            txtPassword.disable();
            btnLogin.disable();
            btnRegistrarse.disable();
-           register registerFrame = new register('1');
+           register registerFrame = new register('1',null);
            registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
            registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
            registerFrame.setVisible(true);
@@ -255,7 +255,7 @@ public class login extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         // TODO add your handling code here:
-        register registerFrame = new register('0');
+        register registerFrame = new register('0',null);
         registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
         registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
         registerFrame.setVisible(true);

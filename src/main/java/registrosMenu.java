@@ -451,7 +451,7 @@ public class registrosMenu extends javax.swing.JFrame {
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
         
-       register registerFrame = new register('2');
+       register registerFrame = new register('2', adminU);
         registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
         registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
         registerFrame.setVisible(true);

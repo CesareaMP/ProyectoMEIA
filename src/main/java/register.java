@@ -35,9 +35,11 @@ public class register extends javax.swing.JFrame {
     char rol;
     String path_fotografia="";
     String mensaje="";
-    public register(char usu) {
+    Users whoEdit=null;
+    public register(char usu, Users a) {
         initComponents();
         rol=usu;
+        whoEdit=a;
         dateChooser = new JDateChooser();
         dateChooser.setDate(new Date()); // Establecer la fecha actual como valor inicial
         dateChooser.setBounds(180, 310, 227, 50); // Establecer la posición y el tamaño
@@ -297,7 +299,7 @@ public class register extends javax.swing.JFrame {
                                 String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
                                 archi.WriteADescriptor(persona,rutadescUsuario,lineadesc,1,0);
                             }
-                            else{
+                            else if(rol=='0'){
                                 archi.WriteABinnacle(linearch,rutabitUsuario,rutaUsuario);
                                 archi.ReorganizeFile(rutaUsuario,rutaUsuario);
                                 String lineaEnvio = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
@@ -307,8 +309,12 @@ public class register extends javax.swing.JFrame {
                                     String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
                                     archi.WriteADescriptor(persona,rutadescbitUsuario,lineadesc,0,0);
                                     archi.WriteADescriptor(persona,rutadescUsuario,lineadesc,2,0);
-                                }
+                                }                               
+                            }
+                            else if(rol==2){//admin edita
                                 
+                            }
+                            else if(rol==3){//usuario edita
                                 
                             }
                         
