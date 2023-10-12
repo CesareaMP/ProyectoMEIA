@@ -364,7 +364,9 @@ public class register extends javax.swing.JFrame {
                             }
                             else if(rol=='4'){
                                 persona.setRol('0');
-                                archi.EditUserUser(persona,rutaUsuario,rutadescUsuario,rutabitUsuario,rutadescUsuario);//Users edit,String rutaArchivo, String rutaDescUsuario, String rutaBinnacle, String rutaDescBinnacle
+                                archi.EditUser(persona,rutaUsuario,rutadescUsuario,persona);//Users edit,String rutaArchivo, String rutaDescUsuario, String rutaBinnacle, String rutaDescBinnacle
+                                archi.EditUser(persona,rutabitUsuario,rutadescbitUsuario,persona);//Users edit,String rutaArchivo, String rutaDescUsuario, String rutaBinnacle, String rutaDescBinnacle
+                            
                             }
                         
                         } catch (IOException e) {}
@@ -385,7 +387,7 @@ public class register extends javax.swing.JFrame {
                         String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
                         archi.WriteADescriptor(whoEdit,rutadescbitUsuario,lineabit,0,0);
                         String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
-                        archi.WriteADescriptor(whoEdit,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
+                        archi.WriteADescriptor(whoEdit,rutadescUsuario,lineadesc,-2,archi.countLines(rutadescUsuario));
                         }
                         catch(IOException e){ 
                         }
@@ -401,7 +403,7 @@ public class register extends javax.swing.JFrame {
                         }
                         }// admin actualizo
                         
-                        else if(rol==4){
+                        else if(rol=='4'){
                         String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
                         }//admin edito
                         

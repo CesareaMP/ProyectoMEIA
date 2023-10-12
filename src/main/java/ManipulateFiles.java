@@ -97,9 +97,13 @@ public class ManipulateFiles {
             String[] partes = primeraLinea.split("\\|");
             partes[3] = ObtenerHoraActual();
             partes[4] = usuario.getUsuario();
+            int total=Integer.parseInt(partes[5]);
             partes[5] = "0";
-
-            int total = 0;
+           
+            if (valor!=256) {
+            total=0;  
+            }
+            
             if (valor == 1) {
                 int canti = Integer.parseInt(partes[6]) + 1;
                 total += canti;
@@ -305,43 +309,6 @@ public class ManipulateFiles {
         }
         String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
         WriteADescriptor(whoEdit,rutaDescriptor,lineabit,256,0);
-    }    
-    
-    public void EditUserUser(Users edit,String rutaArchivo, String rutaDescUsuario, String rutaBinnacle, String rutaDescBinnacle) throws IOException{
-        List<Users> alluser=EnListFile(rutaArchivo);
-        List<Users> alluserBin=EnListFile(rutaBinnacle);
-        String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + edit.getUsuario() + "|" + ObtenerHoraActual() + "|" + edit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
-        for (int i = 0; i < alluser.size(); i++) {//si lo encuentra en Usuario.txt
-            if (edit.getUsuario().equals(alluser.get(i).getUsuario())) {
-                alluser.remove(i);
-                alluser.add(edit);
-                
-                DeleteFile(rutaArchivo);
-                for (int j = 0; j < alluser.size(); j++) {
-                WriteAFile(alluser.get(i).UserToString(),true,rutaArchivo);
-            }
-                WriteADescriptor(edit,rutaDescUsuario,lineabit,256,0);                
-                break;
-            }
-        }
-        
-        for (int i = 0; i < alluserBin.size(); i++) {//si lo encuentra en Usuario.txt
-            if (edit.getUsuario().equals(alluserBin.get(i).getUsuario())) {
-                alluserBin.remove(i);
-                alluserBin.add(edit);
-                
-                DeleteFile(rutaBinnacle);
-                for (int j = 0; j < alluserBin.size(); j++) {
-                WriteAFile(alluserBin.get(i).UserToString(),true,rutaBinnacle);
-            }
-                WriteADescriptor(edit,rutaDescBinnacle,lineabit,256,0);                
-                break;
-            }
-        }
-        
-        
-        
-        
     }    
     
     

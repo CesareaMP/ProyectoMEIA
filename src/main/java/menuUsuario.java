@@ -456,7 +456,15 @@ public class menuUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
+        try {
+            register registrar = new register('4',Usuario,Usuario);
+            registrar.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+            registrar.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
+            registrar.setVisible(true);
+            this.dispose();
+        } catch (ParseException ex) {
+            Logger.getLogger(menuUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnDDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDDBActionPerformed
