@@ -15,6 +15,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import org.apache.commons.codec.digest.DigestUtils;
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
   private JDateChooser dateChooser;
@@ -36,7 +39,7 @@ public class register extends javax.swing.JFrame {
     String path_fotografia="";
     String mensaje="";
     Users whoEdit=null;
-    public register(char usu, Users a) {
+    public register(char usu, Users a) throws ParseException {
         initComponents();
         rol=usu;
         whoEdit=a;
@@ -44,6 +47,26 @@ public class register extends javax.swing.JFrame {
         dateChooser.setDate(new Date()); // Establecer la fecha actual como valor inicial
         dateChooser.setBounds(180, 310, 227, 50); // Establecer la posición y el tamaño
         getContentPane().add(dateChooser);
+        
+        if (rol=='3') {
+            txtUsuario.setText(a.getUsuario());
+            txtNombre.setText(a.getNombre());
+            txtApellido.setText(a.getApellido());
+            txtPassword.setText("Ingrese nuevo password, no cambie para conservar");
+
+            txtCorreo.setText(a.getCorreoElectronico());
+            txtTelefono.setText(String.valueOf(a.getTelefono()));
+            Date asd=new SimpleDateFormat("dd/MM/yyyy").parse(a.getFechaNacimiento());
+            dateChooser.setDate(asd);
+            
+            ImageIcon imagenIcon = new ImageIcon(a.getPathFotografia());
+            Image imagenOriginal = imagenIcon.getImage();
+            Image imagenRedimensionada = imagenOriginal.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            ImageIcon imagenRedimensionadaIcon = new ImageIcon(imagenRedimensionada);
+            lblImagen.setIcon(imagenRedimensionadaIcon);
+            
+        }
+        
     }
 
     private register() {
@@ -259,7 +282,7 @@ public class register extends javax.swing.JFrame {
         String apellido=txtApellido.getText();
         String password=txtPassword.getText();
         Date fecha_nacimiento = dateChooser.getDate();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");//darle formato a la fecha
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");//darle formato a la fecha
         String Datef = formato.format(fecha_nacimiento);//convertir la fecha en string con el formato de 
         String correo_electronico=txtCorreo.getText();
         int telefono=0;
@@ -311,22 +334,62 @@ public class register extends javax.swing.JFrame {
                                     archi.WriteADescriptor(persona,rutadescUsuario,lineadesc,2,0);
                                 }                               
                             }
-                            else if(rol==2){//admin edita
-                                
+                            else if(rol==2){//admin crea
+                                archi.WriteABinnacle(linearch,rutabitUsuario,rutaUsuario);
+                                archi.ReorganizeFile(rutaUsuario,rutaUsuario);
+                                String lineaEnvio = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+                                archi.WriteADescriptor(whoEdit,rutadescbitUsuario,lineaEnvio,1,0);
+                                if (archi.LargeOfFile(rutabitUsuario)==3) {
+                                    archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
+                                    String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+                                    archi.WriteADescriptor(whoEdit,rutadescbitUsuario,lineadesc,0,0);
+                                    archi.WriteADescriptor(whoEdit,rutadescUsuario,lineadesc,2,0);
+                                }                               
                             }
                             else if(rol==3){//usuario edita
                                 
                             }
                         
                         } catch (IOException e) {}
+                        if (rol==0 || rol==1) {
                         JOptionPane.showMessageDialog(this, "Usuario creado con exito");
                         login loginFrame = new login();
                         loginFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
                         loginFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
                         loginFrame.setVisible(true);
                         this.dispose();
-           this.dispose();
-                    }
+                        }
+                        else if (rol==2 || rol==3){
+                             try
+                                {
+                        ManipulateFiles archi = new ManipulateFiles();
+                        try{
+                        archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
+                        String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+                        archi.WriteADescriptor(whoEdit,rutadescbitUsuario,lineabit,0,0);
+                        String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
+                        archi.WriteADescriptor(whoEdit,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
+                        }
+                        catch(IOException e){ 
+                        }
+            
+                        registrosMenu registrosMenu = new registrosMenu(whoEdit);
+                        registrosMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+                        registrosMenu.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
+                        registrosMenu.setVisible(true);
+                        this.dispose();
+                        } catch (IOException ex)
+                        {
+                         Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        }// admin actualizo
+                        
+                        else if(rol==4){
+                        
+                        }//admin edito
+                        
+                        this.dispose();
+                         }
                     else{
                         JOptionPane.showMessageDialog(this, mensaje);
                         mensaje="";
