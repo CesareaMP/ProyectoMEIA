@@ -405,6 +405,13 @@ public class register extends javax.swing.JFrame {
                         
                         else if(rol=='4'){
                         String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+                        
+                        menuUsuario menuUser = new menuUsuario(persona);
+                        menuUser.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+                        menuUser.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
+                        menuUser.setVisible(true);
+                        this.dispose();
+                        
                         }//admin edito
                         
                         this.dispose();
