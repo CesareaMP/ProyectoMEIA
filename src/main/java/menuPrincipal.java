@@ -62,7 +62,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnRegistros = new javax.swing.JButton();
         btnBackup = new javax.swing.JButton();
-        btnBackup1 = new javax.swing.JButton();
+        btnReorganizar = new javax.swing.JButton();
         lblNombre = new javax.swing.JLabel();
         lblImagen = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
@@ -94,13 +94,13 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnBackup1.setBackground(new java.awt.Color(255, 204, 112));
-        btnBackup1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnBackup1.setForeground(new java.awt.Color(0, 0, 0));
-        btnBackup1.setText("REORGANIZAR");
-        btnBackup1.addActionListener(new java.awt.event.ActionListener() {
+        btnReorganizar.setBackground(new java.awt.Color(255, 204, 112));
+        btnReorganizar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnReorganizar.setForeground(new java.awt.Color(0, 0, 0));
+        btnReorganizar.setText("REORGANIZAR");
+        btnReorganizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackup1ActionPerformed(evt);
+                btnReorganizarActionPerformed(evt);
             }
         });
 
@@ -134,7 +134,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btnRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnReorganizar, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,7 +157,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(btnBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(btnBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReorganizar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -188,18 +188,19 @@ public class menuPrincipal extends javax.swing.JFrame {
         {
             // TODO add your handling code here:
             
-            ManipulateFiles archi = new ManipulateFiles();
+           ManipulateFiles archi = new ManipulateFiles();
         
                     try{
                     String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
                     archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
                     archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
+                    archi.ReorganizeFile(rutaUsuario, rutaUsuario);
                     String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
                     archi.WriteADescriptor(adminU,rutadescbitUsuario,lineabit,0,0);
-                    
                     }
                     catch(IOException e){ 
                     }
+        
             
             registrosMenu registrosMenu = new registrosMenu(adminU);
             registrosMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
@@ -212,7 +213,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegistrosActionPerformed
 
-    private void btnBackup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackup1ActionPerformed
+    private void btnReorganizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReorganizarActionPerformed
         // TODO add your handling code here:
         ManipulateFiles archi = new ManipulateFiles();
         
@@ -220,13 +221,14 @@ public class menuPrincipal extends javax.swing.JFrame {
                     String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
                     archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
                     archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
+                    archi.ReorganizeFile(rutaUsuario, rutaUsuario);
                     String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
                     archi.WriteADescriptor(adminU,rutadescbitUsuario,lineabit,0,0);
                     }
                     catch(IOException e){ 
                     }
         
-    }//GEN-LAST:event_btnBackup1ActionPerformed
+    }//GEN-LAST:event_btnReorganizarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         login loginMenu = new login();
@@ -280,8 +282,8 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBackup;
-    private javax.swing.JButton btnBackup1;
     private javax.swing.JButton btnRegistros;
+    private javax.swing.JButton btnReorganizar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblImagen;

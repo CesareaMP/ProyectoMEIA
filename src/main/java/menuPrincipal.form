@@ -33,7 +33,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnRegistros" alignment="0" min="-2" pref="359" max="-2" attributes="0"/>
                               <Component id="btnBackup" alignment="0" min="-2" pref="359" max="-2" attributes="0"/>
-                              <Component id="btnBackup1" alignment="0" min="-2" pref="359" max="-2" attributes="0"/>
+                              <Component id="btnReorganizar" alignment="0" min="-2" pref="359" max="-2" attributes="0"/>
                               <Component id="btnSalir" alignment="0" min="-2" pref="359" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -64,7 +64,7 @@
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="btnBackup" min="-2" pref="82" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="btnBackup1" min="-2" pref="82" max="-2" attributes="0"/>
+              <Component id="btnReorganizar" min="-2" pref="82" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="btnSalir" min="-2" pref="82" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -116,7 +116,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackupActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBackup1">
+    <Component class="javax.swing.JButton" name="btnReorganizar">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="70" green="cc" red="ff" type="rgb"/>
@@ -130,7 +130,7 @@
         <Property name="text" type="java.lang.String" value="REORGANIZAR"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackup1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReorganizarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNombre">

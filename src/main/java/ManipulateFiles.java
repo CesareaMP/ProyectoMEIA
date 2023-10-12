@@ -128,6 +128,7 @@ public class ManipulateFiles {
             }
              else if(valor==-2){
                  int canti = Integer.parseInt(partes[6]) + counts;
+                 partes[7] = String.valueOf(0);
                  total+=canti;
                  partes[6] = String.valueOf(canti);
              }
