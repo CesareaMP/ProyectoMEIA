@@ -217,11 +217,12 @@ public class menuPrincipal extends javax.swing.JFrame {
         ManipulateFiles archi = new ManipulateFiles();
         
                     try{
-                    String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
-                    archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
-                    archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
-                    String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
-                    archi.WriteADescriptor(adminU,rutadescbitUsuario,lineabit,0,0);
+                        
+                        String lineadesc = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
+                        archi.WriteADescriptor(adminU,rutadescUsuario,lineadesc,-2,archi.countLines(rutabitUsuario));
+                        archi.ReorganizeFile(rutabitUsuario,rutaUsuario);
+                        String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + adminU.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+                        archi.WriteADescriptor(adminU,rutadescbitUsuario,lineabit,0,0);
                     }
                     catch(IOException e){ 
                     }
