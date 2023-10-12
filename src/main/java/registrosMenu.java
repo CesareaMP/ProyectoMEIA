@@ -446,7 +446,7 @@ public class registrosMenu extends javax.swing.JFrame {
         {
             users = MPF.EnListFile(nombreArchivo);
             Users usuarioAEliminar = users.get(selIndex);
-            if(usuarioAEliminar.getRol() != '1')
+            if(!usuarioAEliminar.getUsuario().equals(adminU.getUsuario()))
             {
                 MPF.DeleteFromFiles(usuarioAEliminar,nombreArchivo,rutaBinacle,rutadescUsuario,rutadescbitUsuario,adminU);
                 listaRegistros.get(selIndex).setEstatus('0');

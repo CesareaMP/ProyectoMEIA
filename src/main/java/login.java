@@ -169,7 +169,7 @@ public class login extends javax.swing.JFrame {
             if (usuario==null) {
                 JOptionPane.showMessageDialog(null,"Usuario no encontrado");
             }
-            else{                
+            else if (usuario.getEstatus()!='0') {                
                 if (usuario.getRol()=='1') {//es admin
                     menuPrincipal menuPrincipal = new menuPrincipal(usuario);
                     menuPrincipal.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
@@ -190,6 +190,10 @@ public class login extends javax.swing.JFrame {
                     this.dispose();
                     
                 }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"El usuario se ha dado de baja y por ende no puede ser accedido");
             }
         }
         else{
