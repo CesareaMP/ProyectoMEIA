@@ -309,6 +309,7 @@ public class ManipulateFiles {
         }
         String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
         WriteADescriptor(whoEdit,rutaDescriptor,lineabit,256,0);
+        SortFile(rutaArchivo);
     }    
     
     
