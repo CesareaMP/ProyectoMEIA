@@ -250,7 +250,7 @@ public class login extends javax.swing.JFrame {
            btnRegistrarse.disable();
            register registerFrame;
             try {
-                registerFrame = new register('1',null);
+                registerFrame = new register('1',null,null);
                 registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
            registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
            registerFrame.setVisible(true);
@@ -266,7 +266,7 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
         register registerFrame;
      try {
-         registerFrame = new register('0',null);
+         registerFrame = new register('0',null,null);
          registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
         registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
         registerFrame.setVisible(true);

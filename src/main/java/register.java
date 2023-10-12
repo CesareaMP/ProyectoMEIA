@@ -39,27 +39,30 @@ public class register extends javax.swing.JFrame {
     String path_fotografia="";
     String mensaje="";
     Users whoEdit=null;
-    public register(char usu, Users a) throws ParseException {
+    Users adminU=null;
+    public register(char usu, Users a, Users admin) throws ParseException {
         initComponents();
         rol=usu;
         whoEdit=a;
+        adminU=admin;
         dateChooser = new JDateChooser();
         dateChooser.setDate(new Date()); // Establecer la fecha actual como valor inicial
         dateChooser.setBounds(180, 310, 227, 50); // Establecer la posición y el tamaño
         getContentPane().add(dateChooser);
         
-        if (rol=='3') {
+        if (rol=='3' || rol=='4') {
             txtUsuario.setText(a.getUsuario());
             txtNombre.setText(a.getNombre());
             txtApellido.setText(a.getApellido());
-            txtPassword.setText("Ingrese nuevo password, no cambie para conservar");
+            txtPassword.setText("Password, no cambie para conservar");
+            txtUsuario.disable();
 
             txtCorreo.setText(a.getCorreoElectronico());
             txtTelefono.setText(String.valueOf(a.getTelefono()));
             Date asd=new SimpleDateFormat("dd/MM/yyyy").parse(a.getFechaNacimiento());
             dateChooser.setDate(asd);
-            
-            ImageIcon imagenIcon = new ImageIcon(a.getPathFotografia());
+            path_fotografia=a.getPathFotografia();
+            ImageIcon imagenIcon = new ImageIcon(path_fotografia);
             Image imagenOriginal = imagenIcon.getImage();
             Image imagenRedimensionada = imagenOriginal.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             ImageIcon imagenRedimensionadaIcon = new ImageIcon(imagenRedimensionada);
@@ -305,13 +308,21 @@ public class register extends javax.swing.JFrame {
                 if(path_fotografia.length()>200) mensaje+="La ruta de la fotografia es muy larga\n";
                 if(txtTelefono.getText().length()!=8) mensaje+="El numero de telefono es invalido\n";
                 Zxcvbn zxcvbn = new Zxcvbn();
+                int score=4;
+                String encrypt=null;
+                if (!password.equals("Password, no cambie para conservar")) {
                 Strength asd=zxcvbn.measure(password);
-                int score = asd.getScore();
+                score = asd.getScore();
+                encrypt=DigestUtils.sha256Hex(password);
+                }
+                else{
+                    encrypt=whoEdit.getPassword();
+                }
                     if (score<=2) {
                         mensaje+="Su contrasenia es demasiado debil, trate usar mayusculas y/o caracteres especiales\n";
                     }
                     if (mensaje.equals("")) {
-                        Users persona=new Users(usuario,nombre,apellido,DigestUtils.sha256Hex(password),rol,Datef,correo_electronico,telefono,path_fotografia,estatus);
+                        Users persona=new Users(usuario,nombre,apellido,encrypt,rol,Datef,correo_electronico,telefono,path_fotografia,estatus);
                         String linearch=persona.UserToString();
                         try {
                             if (rol=='1') {
@@ -334,7 +345,8 @@ public class register extends javax.swing.JFrame {
                                     archi.WriteADescriptor(persona,rutadescUsuario,lineadesc,2,0);
                                 }                               
                             }
-                            else if(rol==2){//admin crea
+                            else if(rol=='2'){//admin crea
+                                persona.setRol('0');
                                 archi.WriteABinnacle(linearch,rutabitUsuario,rutaUsuario);
                                 archi.ReorganizeFile(rutaUsuario,rutaUsuario);
                                 String lineaEnvio = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + persona.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
@@ -346,12 +358,17 @@ public class register extends javax.swing.JFrame {
                                     archi.WriteADescriptor(whoEdit,rutadescUsuario,lineadesc,2,0);
                                 }                               
                             }
-                            else if(rol==3){//usuario edita
-                                
+                            else if(rol=='3'){//usuario edita                 
+                                persona.setRol('0');
+                                archi.EditUser(persona, rutaUsuario,rutadescUsuario,adminU);
+                            }
+                            else if(rol=='4'){
+                                persona.setRol('0');
+                                archi.EditUserUser(persona,rutaUsuario,rutadescUsuario,rutabitUsuario,rutadescUsuario);//Users edit,String rutaArchivo, String rutaDescUsuario, String rutaBinnacle, String rutaDescBinnacle
                             }
                         
                         } catch (IOException e) {}
-                        if (rol==0 || rol==1) {
+                        if (rol=='0' || rol=='1') {
                         JOptionPane.showMessageDialog(this, "Usuario creado con exito");
                         login loginFrame = new login();
                         loginFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
@@ -359,7 +376,7 @@ public class register extends javax.swing.JFrame {
                         loginFrame.setVisible(true);
                         this.dispose();
                         }
-                        else if (rol==2 || rol==3){
+                        else if (rol=='2' || rol=='3'){
                              try
                                 {
                         ManipulateFiles archi = new ManipulateFiles();
@@ -385,7 +402,7 @@ public class register extends javax.swing.JFrame {
                         }// admin actualizo
                         
                         else if(rol==4){
-                        
+                        String lineabit = "usuario" + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + archi.ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
                         }//admin edito
                         
                         this.dispose();

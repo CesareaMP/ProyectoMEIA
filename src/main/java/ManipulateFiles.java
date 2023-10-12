@@ -105,8 +105,11 @@ public class ManipulateFiles {
                 total += canti;
                 partes[6] = String.valueOf(canti);
             } else if(valor==-1) {
+                int cantid = Integer.parseInt(partes[6]) - 1;
                 int canti = Integer.parseInt(partes[7]) + 1;
-                total += canti;
+                if(cantid<0) cantid=0;
+                total += canti+cantid;
+                partes[6] = String.valueOf(cantid);
                 partes[7] = String.valueOf(canti);
             }
             else if(valor==0){                
@@ -241,16 +244,6 @@ public class ManipulateFiles {
         }
         return lineas;
      }
-     public Users FindAdmin(List<Users> allusers) throws IOException{
-     Users admin=null;
-     for (int i = 0; i < allusers.size(); i++) {
-                if (allusers.get(i).getRol()=='1') {
-                    admin=allusers.get(i);
-                    break;
-                }
-            }
-     return admin;
-     }
      
     private void DeleteFile(String ruta) throws IOException{
          FileWriter fileWriter = new FileWriter(ruta);
@@ -259,21 +252,14 @@ public class ManipulateFiles {
     }
     
     public int FindUser(Users who,List<Users> users) throws IOException{
-        Users admin=FindAdmin(users);
         for (int i = 0; i < users.size(); i++) {
-        if (users.get(i).getUsuario().equals(who.getUsuario()) && !users.get(i).getUsuario().equals(admin.getUsuario())) {
+        if (users.get(i).getUsuario().equals(who.getUsuario())) {
             return i; // Termina el bucle una vez que se elimina el objeto
-        }        
+        }           
     }
         return -1;
     }
-    
-    private void EditDescriptorByAdmin(String rutaUsuario, String rutaDescriptor, int action) throws IOException{
-        Users admin=FindAdmin(EnListFile(rutaUsuario));
-        String lineadesc = "usuario" + "|" + ObtenerHoraActual() + "|" + admin.getUsuario() + "|" + ObtenerHoraActual() + "|" + admin.getUsuario() + "|" + "1" + "|" + "1" + "|" + "0" + "|" + "3";
-        WriteADescriptor(admin,rutaDescriptor,lineadesc,action,0);
-    }
-   
+
     public void DeleteFromFiles(Users delete, String rutaUsuario, String rutaBinnacle, String rutaUsuDescriptor,String rutaBinDescriptor, Users whoDeletes) throws IOException {
     List<Users> users = new ArrayList<>();
     List<Users> usersBinnacle = new ArrayList<>();
@@ -308,7 +294,8 @@ public class ManipulateFiles {
         List<Users> alluser=EnListFile(rutaArchivo);
         for (int i = 0; i < alluser.size(); i++) {
             if (edit.getUsuario().equals(alluser.get(i).getUsuario())) {
-                alluser.set(i, edit);
+                alluser.remove(i);
+                alluser.add(edit);
                 break;
             }
         }
@@ -319,6 +306,44 @@ public class ManipulateFiles {
         String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + ObtenerHoraActual() + "|" + whoEdit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
         WriteADescriptor(whoEdit,rutaDescriptor,lineabit,256,0);
     }    
+    
+    public void EditUserUser(Users edit,String rutaArchivo, String rutaDescUsuario, String rutaBinnacle, String rutaDescBinnacle) throws IOException{
+        List<Users> alluser=EnListFile(rutaArchivo);
+        List<Users> alluserBin=EnListFile(rutaBinnacle);
+        String lineabit = "usuario" + "|" + ObtenerHoraActual() + "|" + edit.getUsuario() + "|" + ObtenerHoraActual() + "|" + edit.getUsuario() + "|" + "0" + "|" + "0" + "|" + "0" + "|" + "3";
+        for (int i = 0; i < alluser.size(); i++) {//si lo encuentra en Usuario.txt
+            if (edit.getUsuario().equals(alluser.get(i).getUsuario())) {
+                alluser.remove(i);
+                alluser.add(edit);
+                
+                DeleteFile(rutaArchivo);
+                for (int j = 0; j < alluser.size(); j++) {
+                WriteAFile(alluser.get(i).UserToString(),true,rutaArchivo);
+            }
+                WriteADescriptor(edit,rutaDescUsuario,lineabit,256,0);                
+                break;
+            }
+        }
+        
+        for (int i = 0; i < alluserBin.size(); i++) {//si lo encuentra en Usuario.txt
+            if (edit.getUsuario().equals(alluserBin.get(i).getUsuario())) {
+                alluserBin.remove(i);
+                alluserBin.add(edit);
+                
+                DeleteFile(rutaBinnacle);
+                for (int j = 0; j < alluserBin.size(); j++) {
+                WriteAFile(alluserBin.get(i).UserToString(),true,rutaBinnacle);
+            }
+                WriteADescriptor(edit,rutaDescBinnacle,lineabit,256,0);                
+                break;
+            }
+        }
+        
+        
+        
+        
+    }    
+    
     
    public String backupDirectory(String rutaOrigen) {
     JFileChooser fileChooser = new JFileChooser();

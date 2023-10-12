@@ -420,7 +420,7 @@ public class registrosMenu extends javax.swing.JFrame {
         {
             users = MPF.EnListFile(nombreArchivo);
             Users usuarioAEditar= users.get(selIndex);
-            register registerFrame = new register('3', usuarioAEditar);
+            register registerFrame = new register('3', usuarioAEditar, adminU);
             registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
             registerFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
             registerFrame.setVisible(true);
@@ -474,7 +474,7 @@ public class registrosMenu extends javax.swing.JFrame {
         
        register registerFrame;
         try {
-            registerFrame = new register('2', adminU);
+            registerFrame = new register('2', adminU,adminU);
             registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
         registerFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
         registerFrame.setVisible(true);
