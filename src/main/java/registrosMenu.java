@@ -412,18 +412,26 @@ public class registrosMenu extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
-        
-        register registerFrame;
-        try {
-            registerFrame = new register('3', adminU);
+        ManipulateFiles MPF = new ManipulateFiles();
+        String SelUserString = JlistRegistros.getSelectedValue();
+        int selIndex = listaRegistrosMostrados.indexOf(SelUserString);
+        List<Users> users = new ArrayList<>();
+        try
+        {
+            users = MPF.EnListFile(nombreArchivo);
+            Users usuarioAEditar= users.get(selIndex);
+            register registerFrame = new register('3', usuarioAEditar);
             registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-        registerFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
-        registerFrame.setVisible(true);
-        this.dispose();      
-        } catch (ParseException ex) {
+            registerFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
+            registerFrame.setVisible(true);
+            this.dispose();    
+        } catch (IOException ex)
+        {
+            Logger.getLogger(registrosMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex)
+        {
             Logger.getLogger(registrosMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-          
         
     }//GEN-LAST:event_btnEditarActionPerformed
 
