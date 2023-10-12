@@ -1,4 +1,23 @@
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -13,6 +32,11 @@ import javax.swing.ImageIcon;
  */
 public class menuUsuario extends javax.swing.JFrame {
 
+    public String nombreArchivo = "C:/MEIA/usuario.txt";
+    public String rutaBinacle = "C:/MEIA/bitusuario.txt";
+    public String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
+    public String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
+    
     /**
      * Creates new form menuUsuario
      */
@@ -433,12 +457,30 @@ public class menuUsuario extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
-        
-        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnDDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDDBActionPerformed
-        // TODO add your handling code here:
+        
+        
+        ManipulateFiles MPF = new ManipulateFiles();
+        List<Users> users = new ArrayList<>();
+        
+        try
+        {
+            users = MPF.EnListFile(nombreArchivo);
+            MPF.DeleteFromFiles(Usuario,nombreArchivo,rutaBinacle,rutadescUsuario,rutadescbitUsuario,Usuario);
+            login loginMenu = new login();
+            loginMenu.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+            loginMenu.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
+            loginMenu.setVisible(true);
+        this.dispose();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(menuUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }//GEN-LAST:event_btnDDBActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
