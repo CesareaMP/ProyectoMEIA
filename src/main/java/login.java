@@ -6,8 +6,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -245,21 +248,33 @@ public class login extends javax.swing.JFrame {
            txtPassword.disable();
            btnLogin.disable();
            btnRegistrarse.disable();
-           register registerFrame = new register('1',null);
-           registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+           register registerFrame;
+            try {
+                registerFrame = new register('1',null);
+                registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
            registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
            registerFrame.setVisible(true);
            this.dispose();
+            } catch (ParseException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         // TODO add your handling code here:
-        register registerFrame = new register('0',null);
-        registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+        register registerFrame;
+     try {
+         registerFrame = new register('0',null);
+         registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
         registerFrame.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
         registerFrame.setVisible(true);
         this.dispose();
+     } catch (ParseException ex) {
+         Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+     }
+        
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     /**

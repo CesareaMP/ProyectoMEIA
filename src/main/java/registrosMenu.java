@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -412,6 +413,18 @@ public class registrosMenu extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
         
+        register registerFrame;
+        try {
+            registerFrame = new register('3', adminU);
+            registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+        registerFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
+        registerFrame.setVisible(true);
+        this.dispose();      
+        } catch (ParseException ex) {
+            Logger.getLogger(registrosMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -451,11 +464,17 @@ public class registrosMenu extends javax.swing.JFrame {
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
         
-       register registerFrame = new register('2', adminU);
-        registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+       register registerFrame;
+        try {
+            registerFrame = new register('2', adminU);
+            registerFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
         registerFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
         registerFrame.setVisible(true);
         this.dispose();
+        } catch (ParseException ex) {
+            Logger.getLogger(registrosMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }//GEN-LAST:event_btnAñadirActionPerformed
 
@@ -464,7 +483,7 @@ public class registrosMenu extends javax.swing.JFrame {
         
         menuPrincipal menuPrincipal = new menuPrincipal(adminU);
         menuPrincipal.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-        menuPrincipal.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
+        menuPrincipal.setAlwaysOnTop(true); // Para que se muestre por encima del otro JFrame
         menuPrincipal.setVisible(true);
         this.dispose();
         
