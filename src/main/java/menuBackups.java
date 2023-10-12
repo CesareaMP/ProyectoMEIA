@@ -1,8 +1,22 @@
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -18,21 +32,47 @@ public class menuBackups extends javax.swing.JFrame {
     /**
      * Creates new form menuBackups
      */
-    public Users adminU = new Users();
-    public menuBackups(Users usuario) {
-        initComponents();
-        adminU=usuario;
-    }
-
-    private menuBackups() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-String rutaUsuario = "C:/MEIA/usuario.txt";
+    String rutaUsuario = "C:/MEIA/usuario.txt";
     String rutadescUsuario = "C:/MEIA/desc_usuario.txt";
     String rutabitUsuario = "C:/MEIA/bitusuario.txt";
     String rutadescbitUsuario = "C:/MEIA/desc_bitusuario.txt";
     String rutaBackup="C:/MEIA/backup.txt";
     String rutadescBackup="C:/MEIA/desc_Backup.txt";
+    
+    public List<String> listaRegBackups = new ArrayList<>();
+    
+    public Users adminU = new Users();
+    public menuBackups(Users usuario) throws FileNotFoundException, IOException {
+        initComponents();
+        adminU=usuario;
+        
+        FileReader leerFila = new FileReader(rutaBackup);
+        
+        BufferedReader bufferedReader = new BufferedReader(leerFila);
+        
+        String linea = bufferedReader.readLine();
+        
+        while(linea != null)
+        {
+            listaRegBackups.add(linea);
+            linea = bufferedReader.readLine();
+        }
+        
+        DefaultListModel modeloListaRegistros = new DefaultListModel();
+        
+        for(int i = 0; i<listaRegBackups.size();i++)
+        {
+            modeloListaRegistros.addElement(listaRegBackups.get(i));
+        }
+        
+        JlistBackups.setModel(modeloListaRegistros);
+        
+    }
+
+    private menuBackups() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,7 +85,7 @@ String rutaUsuario = "C:/MEIA/usuario.txt";
         jLabel1 = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        JlistRegistros = new javax.swing.JList<>();
+        JlistBackups = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -65,14 +105,14 @@ String rutaUsuario = "C:/MEIA/usuario.txt";
         lblName.setText("USUARIO: WILBERT (ADMIN)");
         lblName.setOpaque(true);
 
-        JlistRegistros.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        JlistRegistros.setModel(new javax.swing.AbstractListModel<String>() {
+        JlistBackups.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        JlistBackups.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "njghmuktj" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        JlistRegistros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(JlistRegistros);
+        JlistBackups.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(JlistBackups);
 
         jLabel2.setBackground(new java.awt.Color(255, 193, 112));
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -171,6 +211,17 @@ String rutaUsuario = "C:/MEIA/usuario.txt";
         try {
             archi.WriteAFile(lineaArch,true,rutaBackup);//String linea, boolean save, String rutaArchivo
             archi.WriteABackupDescriptor(rutadescBackup, lineaDesc);
+            
+            listaRegBackups.add(lineaArch);
+            DefaultListModel modeloListaRegistros = new DefaultListModel();
+        
+            for(int i = 0; i<listaRegBackups.size();i++)
+            {
+                modeloListaRegistros.addElement(listaRegBackups.get(i));
+            }
+        
+            JlistBackups.setModel(modeloListaRegistros);
+            
         } catch (IOException ex) {
             Logger.getLogger(menuBackups.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,7 +229,12 @@ String rutaUsuario = "C:/MEIA/usuario.txt";
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+
+        menuPrincipal menuPrincipal = new menuPrincipal(adminU);
+        menuPrincipal.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+        menuPrincipal.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
+        menuPrincipal.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
@@ -224,7 +280,7 @@ String rutaUsuario = "C:/MEIA/usuario.txt";
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> JlistRegistros;
+    private javax.swing.JList<String> JlistBackups;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;

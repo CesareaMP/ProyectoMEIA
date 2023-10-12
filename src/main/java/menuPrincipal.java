@@ -168,11 +168,19 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private void btnBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackupActionPerformed
         // TODO add your handling code here:
-        menuBackups backupFrame = new menuBackups(adminU);
-           backupFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
-           backupFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
-           backupFrame.setVisible(true);
-           this.dispose();
+        menuBackups backupFrame;
+        try
+        {
+            backupFrame = new menuBackups(adminU);
+            backupFrame.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
+            backupFrame.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
+            backupFrame.setVisible(true);
+            this.dispose();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
     }//GEN-LAST:event_btnBackupActionPerformed
 
     private void btnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrosActionPerformed

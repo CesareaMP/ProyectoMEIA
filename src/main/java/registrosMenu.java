@@ -461,7 +461,6 @@ public class registrosMenu extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
 
-        
         menuPrincipal menuPrincipal = new menuPrincipal(adminU);
         menuPrincipal.setLocationRelativeTo(null); // Para mostrar en el centro de la pantalla
         menuPrincipal.setAlwaysOnTop(false); // Para que se muestre por encima del otro JFrame
